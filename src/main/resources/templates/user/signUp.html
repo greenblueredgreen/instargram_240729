@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/defaultLayout}">
+
+<section layout:fragment="content" class="contents d-flex justify-content-center">
+	<div class="sign-up-box">
+		<!-- 로고 화면 -->
+		<div class="d-flex justify-content-center mt-5">
+			<img alt="로고 이미지" src="/img/instargramLogo.png">
+		</div>
+		<h3 class="mt-5">친구들의 사진과 동영상을 보려면 가입하세요</h3>
+		<br>
+		<!-- form태그 -->
+		<form id="signUpForm" method="post" action="/user/sign-up">
+			<table class="sign-up-table table table-bodered">
+				<tr>
+					<td>
+						<input type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="전화번호">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="text" id="email" name="email" class="form-control" placeholder="이메일">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="text" id="name" name="name" class="form-control" placeholder="성명">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="d-flex">
+							<input type="text" id="loginId" name="loginId" class="form-control col-9" placeholder="로그인ID닉네임" >
+							<button type="button" id="loginIdCheckBtn" class="btn btn-success ml-4">중복확인</button><br>
+						</div>
+						
+						<!-- 아이디 체크 -->
+						<div id="idCheckLength" class="small text-danger d-none">ID를 4자 이상 입력하시오</div>
+						<div id="idCheckDuplicated" class="small text-danger d-none">이미 사용중인 ID</div>
+						<div id="idCheckOk" class="small text-success d-none">사용 가능한 ID</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="password" id="password" name="password" class="form-control" placeholder="비밀번호">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="password" id="confirmPassword" class="form-control" placeholder="비밀번호확인">
+					</td>
+				</tr>
+			</table>
+			<br>
+			<button type="submit" id="signUpBtn" class="btn btn-primary w-100 mt-3">가입</button>	
+		</form>
+		
+		<div class="d-flex justify-content-center mt-5">
+			<h3>계정이 있으신가요? &emsp;<a href="#">로그인</a></h3>
+		</div>
+		
+		<br>
+		<br>
+		<small class="d-flex justify-content-center align-items-center mt-5">@ 2024 INSTARGRAM FROM META</small>
+
+	</div>
+</section>
+
+	<th:block layout:fragment="script">
+	    <script>
+	   	$(document).ready(function(){
+	   		//중복확인
+	   		$("#loginIdCheckBtn").on('click', function(){
+	   			$("#idCheckLength").addClass("d-none");
+	   			$("#idCheckDuplicated").addClass("d-none");
+	   			$("#idCheckOk").addClass("d-none");
+	   			
+	   			let loginId = $("#loginId").val().trim();
+				//alert(loginId);
+				
+				if(loginId.length<4){
+					$("#idCheckLength").removeClass("d-none");
+					return;
+				}
+				
+				//ajax
+				$.ajax({
+					//request
+					url : "/user/is-duplicated-id"
+					, data : {"loginId" : loginId}
+				
+					//response
+					, success:function(data){
+						if(data.is-duplicated-id){
+							$("#idCheckDuplicated").removeClass("d-none");
+						} else{
+							$("#idCheckOk").removeClass("d-none");
+						}
+					}
+					, error:function(error){
+						alert("실패");
+					}
+				}); //ajax
+	   		}); //loginIdCheckBtn
+	   		
+	   		$("#signUpForm").on('submit', function(e){
+	   			e.preventDefault();
+	   			
+	   			let phoneNumber = $("#phoneNumber").val().trim();
+				let email = $("#email").val().trim();
+				let name = $("#name").val().trim();
+				let loginId = $("#loginId").val().trim();
+				let password = $("#password").val().trim();
+				let confirmPassword = $("#confirmPassword").val().trim();
+				
+				if(!phoneNumber){
+					alert("전화번호를 입력하시오");
+					return false;
+				}
+				if(!email){
+					alert("이메일을 입력하시오");
+					return false;
+				} 
+				if(!name){
+					alert("이름 입력하시오");
+					return false;
+				}
+				if(!loginId){
+					alert("아이디 입력하시오");
+					return false;
+				}
+				if(!password || !confirmPassword){
+					alert("비밀번호 입력");
+					return false;
+				}
+				if(password != confirmPassword){
+					alert("비밀번호 일치하지 않음");
+					return false;
+				}
+				if($("#idCheckOk").hasClass("d-none")){
+					alert("아이디 중복 확인해주세요");
+					return false;
+				}
+				
+				let url = $(this).attr("action");
+				console.log(url);
+				let params = $(this).serialize(); 
+				console.log(params);
+				
+				$.post(url, params)
+				.done(function(data){
+					if(data.code==200){
+						alert("가입 환영")
+						location.href = "/user/sign-in-view";
+					} else{
+						alert(data.error_message);
+					}
+				});
+	   		});
+	   		
+	   	});
+	    </script>
+	</th:block>
+</html>

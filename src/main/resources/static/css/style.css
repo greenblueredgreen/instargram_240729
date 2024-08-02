@@ -1,16 +1,38 @@
 @charset "UTF-8";
 
-header{
-	width: 400px;
-    height: 1200px;
+#wrap {
+	width: 1200px;
+	margin: 0 auto;
 }
 
-contents{
-	width:100px;
+header {
 	height: 1200px;
 }
 
-footer{
-	width: 400px;
-    height: 1200px;
+.contents {
+	height: 1200px;
+	width: 1000px;
+}
+
+footer {
+	height: 1200px;
+}
+
+.hr-sect {
+	display: flex;
+	flex-basis: 100%;
+	align-items: center;
+	color: rgba(0, 0, 0, 0.35);
+	font-size: 17px;
+	margin: 8px 0px;
+}
+
+.hr-sect::before, .hr-sect::after {
+	content: "";
+	flex-grow: 1;
+	background: rgba(0, 0, 0, 0.35);
+	height: 1px;
+	font-size: 0px;
+	line-height: 0px;
+	margin: 0px 16px;
 }

@@ -7,18 +7,20 @@
 	<!-- head config -->
 	<th:block th:replace="fragments/config :: configFragment"></th:block>
 <body>
-	<div id="wrap d-flex">
-		<!-- header -->
-		<header th:replace="fragments/header :: headerFragment"></header>
-		
-		<!-- content -->
-		<section layout:fragment="content"></section>
-		
-		<!-- script -> content 조각 안에 있음 -->
-		<th:block layout:fragment="script"></th:block>
-		
-		<!-- footer -->
-		<footer th:replace="fragments/footer :: footerFragment"></footer>
+	<div id="wrap">
+		<div class="d-flex">
+			<!-- header -->
+			<header th:replace="fragments/header :: headerFragment" class="col-3"></header>
+			
+			<!-- content -->
+			<section layout:fragment="content" class="col-7"></section>
+			
+			<!-- script -> content 조각 안에 있음 -->
+			<th:block layout:fragment="script"></th:block>
+			
+			<!-- footer -->
+			<footer th:replace="fragments/footer :: footerFragment" class="col-2"></footer>
+		</div>
 	</div>
 </body>
 </html>

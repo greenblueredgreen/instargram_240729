@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/defaultLayout}">
+<div layout:fragment="content" class="contents d-flex justify-content-center">
+	<div class="login-box">
+		<div class="d-flex justify-content-center mt-5">
+			<img alt="로고 이미지" src="/img/instargramLogo.png">
+		</div>
+		
+		<form id="loginForm" action="/user/sign-in" method="post">
+			<div class="input-group mt-5">
+				<input type="text" class="form-control" id="loginId" name="loginId" placeholder="아이디">
+			</div>
+			<div class="input-group mt-2">
+				<input type="password" class="form-control" id="password" name="password" placeholder="비밀번호">
+			</div>
+			
+			<input type="submit" id="loginBtn" class="btn btn-block btn-primary mt-5" value="로그인">
+		</form>
+		
+		<br>
+			<div class="d-flex justify-content-center hr-sect font-weight-bold">
+				또는
+			</div>
+			<div>
+				<button type="button" class="btn btn-block mt-5 btn-warning font-weight-bold">kakao 로그인</button>
+			</div>
+		
+		<br>
+		<br>
+		<div class="d-flex justify-content-center mt-5 font-weight-bold" >
+			<small>계정이 없으신가요? &emsp;<a href="#">가입하기</a></small>
+		</div>
+		
+		<br>
+		<br>
+		<small class="d-flex justify-content-center align-items-center mt-5">@ 2024 INSTARGRAM FROM META</small>
+		
+	</div>
+</div>
+
+<th:block layout:fragment="script">
+    <script>
+    	$("#document").ready(function(){
+    		$("form").on('submit', function(e){
+    			e.preventDefault();
+    			
+    			let loginId = $("#loginId").val().trim();
+    			let password = $("#password").val().trim();
+    			
+    			if(!loginId) {
+    				alert("아이디를 입력하시오");
+    				return false;
+    			}
+    			if(!password) {
+    				alert("비밀번호를 입력하시오");
+    				return false;
+    			}
+    			
+    			let url = $(this).attr('action');
+    			let params = $(this).serialize(); //name들 넘어감
+    			
+    			//ajax
+    			$.post(url,params)
+    			.done(function(data) {
+    				if(data.result == "성공"){
+    					location.href="/timeline/timeline-view";
+    				}
+    				else{
+    					alert(data.error_message);
+    				}
+    			});
+    		});
+    	});
+
+    </script>
+</th:block>

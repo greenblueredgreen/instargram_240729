@@ -1,4 +1,4 @@
-package com.Instargram.test.domain;
+package com.Instargram.user.entity;
 
 import java.time.LocalDateTime;
 
@@ -17,7 +17,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-
-public class TestDomain {
-  
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Getter
+@Table(name="user")
+@Entity
+public class UserEntity {
+	id
+	phoneNumber
+	email
+	name
+	loginId
+	password
+	profileImg
+	createdAt
+	updatedAt
 }
