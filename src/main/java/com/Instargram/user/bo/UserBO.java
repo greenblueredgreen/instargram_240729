@@ -1,0 +1,39 @@
+package com.Instargram.user.bo;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.Instargram.user.entity.UserEntity;
+import com.Instargram.user.repository.UserRepository;
+
+@Service
+public class UserBO {
+
+	@Autowired
+	private UserRepository userRepository;
+	
+	//ID 중복확인 BO
+	public UserEntity getUserEntityByLoginId(String loginId) {
+		return userRepository.findByLoginId(loginId);
+	}
+	
+	//회원가입
+	public UserEntity addUser(
+			String phoneNumber, String email, 
+			String name, String loginId, String password) {
+		return userRepository.save(UserEntity.builder()
+				.phoneNumber(phoneNumber)
+				.email(email)
+				.name(name)
+				.loginId(loginId)
+				.password(password)
+				.build());
+	}
+	
+	//로그인 : 아이디, 비번
+	public UserEntity getUserEntityByLoginIdPassword(
+			String loginId, String password) {
+		return userRepository.findByLoginIdAndPassword(loginId, password);
+	}
+	
+}

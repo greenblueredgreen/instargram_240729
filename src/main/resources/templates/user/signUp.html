@@ -71,30 +71,28 @@
 
 	<th:block layout:fragment="script">
 	    <script>
-	   	$(document).ready(function(){
-	   		//중복확인
-	   		$("#loginIdCheckBtn").on('click', function(){
-	   			$("#idCheckLength").addClass("d-none");
-	   			$("#idCheckDuplicated").addClass("d-none");
-	   			$("#idCheckOk").addClass("d-none");
-	   			
-	   			let loginId = $("#loginId").val().trim();
+	    $(document).ready(function(){
+			$("#loginIdCheckBtn").on('click', function(){
+				$("#idCheckLength").addClass("d-none");
+				$("#idCheckDuplicated").addClass("d-none");
+				$("#idCheckOk").addClass("d-none");
+				
+				let loginId = $("#loginId").val().trim();
 				//alert(loginId);
 				
-				if(loginId.length<4){
+				if(loginId.length < 4){
 					$("#idCheckLength").removeClass("d-none");
 					return;
 				}
 				
-				//ajax
 				$.ajax({
 					//request
 					url : "/user/is-duplicated-id"
 					, data : {"loginId" : loginId}
-				
+			
 					//response
 					, success:function(data){
-						if(data.is-duplicated-id){
+						if(data.is_duplicated_id){
 							$("#idCheckDuplicated").removeClass("d-none");
 						} else{
 							$("#idCheckOk").removeClass("d-none");
@@ -104,8 +102,10 @@
 						alert("실패");
 					}
 				}); //ajax
-	   		}); //loginIdCheckBtn
+			}); //$("#loginIdCheckBtn")
 	   		
+			
+			//회원가입
 	   		$("#signUpForm").on('submit', function(e){
 	   			e.preventDefault();
 	   			

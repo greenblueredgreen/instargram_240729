@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/defaultLayout}">
+<section layout:fragment="content" class="contents bg-danger">
+	<h1>프로필 화면</h1>
+	<div>
+		<div class="bg-info d-flex">
+			<div>
+				<img alt="프로필이미지" src="/img/instargramLogo.png">
+			</div>
+			<div>
+				<div class="d-flex justify-content-center">
+					아이디(닉네임)
+					<button class="btn btn-success">프로필 편집</button>
+				</div>
+				<div class="d-flex justify-content-center">
+					<small>게시물    3</small>
+					<small>팔로워    3 </small>
+					<small>팔로우    3</small>
+				</div>
+				<div class="d-flex justify-content-center">
+					상태메시지
+				</div>
+			</div>
+		</div>  <!--프로필 이미지, 아이디, 상태메시지, 팔로워 팔로우-->
+	
+		<div class="bg-success"> <!-- 게시물 -->
+			<div class="d-flex justify-content-center">
+				<b>게시물</b> 
+			</div>
+			<img alt="프로필이미지" src="/img/instargramLogo.png">
+			<img alt="프로필이미지" src="/img/instargramLogo.png">
+			<img alt="프로필이미지" src="/img/instargramLogo.png">
+			<img alt="프로필이미지" src="/img/instargramLogo.png">
+		</div>
+	</div>
+	
+</section>
+
+<th:block layout:fragment="script">
+    <script>
+    </script>
+</th:block>

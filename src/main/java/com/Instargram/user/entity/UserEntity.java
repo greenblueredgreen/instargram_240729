@@ -2,7 +2,6 @@ package com.Instargram.user.entity;
 
 import java.time.LocalDateTime;
 
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
@@ -25,13 +24,30 @@ import lombok.ToString;
 @Table(name="user")
 @Entity
 public class UserEntity {
-	id
-	phoneNumber
-	email
-	name
-	loginId
-	password
-	profileImg
-	createdAt
-	updatedAt
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@Column(name="phoneNumber")
+	private String phoneNumber;
+	
+	private String email;
+	
+	private String name;
+	
+	@Column(name="loginId")
+	private String loginId;
+	
+	private String password;
+	
+	@Column(name="profileImg")
+	private String profileImg;
+	
+	@UpdateTimestamp
+	@Column(name="createdAt")
+	private String createdAt;
+	
+	@UpdateTimestamp
+	@Column(name="updatedAt")
+	private LocalDateTime updatedAt;
 }
