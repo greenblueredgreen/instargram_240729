@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/defaultLayout}">
+<section layout:fragment="content" class="contents d-flex justify-content-center">
+	<div class="w-70">
+		<div class="d-flex justify-content-center">
+			<h1 class="mt-4 mb-4">좋아요 목록</h1>
+		</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>좋아요 한 제목</th>
+					<th>좋아요 한 날짜</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- 타임리프 반복문 돌기 -->
+				<tr>
+					<td>좋아요 한 글 번호</td>
+					<td>좋아요한 글 제목</td>
+					<td>좋아요 날짜 : 2024-07-16</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</section>
+
+<th:block layout:fragment="script">
+    <script>
+
+    </script>
+</th:block>
