@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/defaultLayout}">
+<section layout:fragment="content"
+	class="contents d-flex justify-content-center">
+	<div class="contents-box">
+		<div class="mt-5 font-weigth-bold d-flex justify-content-center">
+			<h3>새 게시물 만들기</h3>
+			<button type="button" class="comment-btn btn btn-light ml-4"><font color="blue">공유하기</font></button>
+		</div>
+		<div class="d-flex mt-5">
+			<div>
+				<img alt="게시물 이미지" src="/img/p.png" width="400px">
+			</div>
+
+			<div>
+				<div class="d-flex">
+					<!-- 로그인한 프로필 이미지, 아이디 -->
+					<img alt="프로필 이미지" src="/img/p.png" width="30px" height="30px">
+					<div>아이디</div>
+				</div>
+				
+				<div>
+					<textarea rows="8" cols="30">문구를 입력해주세요....</textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<th:block layout:fragment="script">
+	<script>
+		
+	</script>
+</th:block>
