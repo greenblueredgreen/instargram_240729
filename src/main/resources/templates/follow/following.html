@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/defaultLayout}">
+<section layout:fragment="content">
+	<div class="w-70">
+		<div>
+			<div class="mt-5  d-flex justify-content-center">
+				<h1>팔로잉</h1>
+			</div>
+			<hr>
+			
+			<!-- 타임리프 반복 돌기 할 것. -->
+			<div class="d-flex justify-content-center">
+				<div>
+					<img alt="게시물 이미지" src="/img/p.png" width="50px" height="50px">
+				</div>
+				<div class="ml-2">
+					<div>아이디</div>
+					<div>이름</div>
+				</div>
+				<div class="ml-5">
+					<button type="button" class="btn btn-light">해제</button>
+				</div>
+			</div> <!-- 반복 끝 -->
+			<div class="d-flex justify-content-center">
+				<div>
+					<img alt="게시물 이미지" src="/img/p.png" width="50px" height="50px">
+				</div>
+				<div class="ml-2">
+					<div>아이디</div>
+					<div>이름</div>
+				</div>
+				<div class="ml-5">
+					<button type="button" class="btn btn-light">해제</button>
+				</div>
+			</div> <!-- 반복 끝 -->
+			<div class="d-flex justify-content-center">
+				<div>
+					<img alt="게시물 이미지" src="/img/p.png" width="50px" height="50px">
+				</div>
+				<div class="ml-2">
+					<div>아이디</div>
+					<div>이름</div>
+				</div>
+				<div class="ml-5">
+					<button type="button" class="btn btn-light">해제</button>
+				</div>
+			</div> <!-- 반복 끝 -->
+		</div>
+	</div>
+</section>
