@@ -4,8 +4,75 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/defaultLayout}">
 <section layout:fragment="content" class="contents bg-danger">
-	<h1>안녕</h1>
+	<div class="contents-box">
+		<!-- 타임라인 영역 -->
+		<div class="timeline-box">
+			<!-- 글 반복 -->
+			<div class="card border roundend mt-2">
+			
+				<!-- 글쓴이, 더보기 -->
+				<div class="p-2 d-flex justify-content-between">
+					<!-- 글쓴이 -->
+					<span>글쓴이  10시간전</span>
 
+					
+					
+					<!-- 더보기 -->
+					<a href="#" class="more-btn">
+						<img src="https://www.iconninja.com/files/860/824/939/more-icon.png" width="30">
+					</a>
+				</div>
+				
+				<!-- 본문 이미지 -->
+				<div>
+					<img alt="게시물 이미지" src="/img/p.png" width="800px">
+				</div>
+				
+				<!-- 좋아요 -->
+				<div class="card-like m-3">
+					<a href="#" class="like-btn">
+						<img src="https://www.iconninja.com/files/214/518/441/heart-icon.png" width="18" height="18" alt="empty heart">
+						<img src="https://www.iconninja.com/files/527/809/128/heart-icon.png" width="18" height="18" alt="filled heart">
+					</a>
+					<span>좋아요 13개</span>
+				</div>
+				
+				<!-- 글 -->
+				<div class="card-post m-3">
+					<span class="font-weigth-bold">글쓴이</span>
+					<span>글내용</span>
+				</div>
+				
+				<!-- 댓글 제목 -->
+				<div class="card-comment-title border-bottom">
+					<div class="font-weight-bold ml-3 mb-1 ">댓글</div>
+				</div>
+				
+				<!-- 댓글 목록 -->
+				<div class="card-comment-list m-2">
+					<!-- 댓글들 -->
+					<div class="card-comment m-1">
+						<span class="font-weight-bold">댓글쓰니</span>
+						<span class="ml-4">댓글 내용임</span>
+						
+						<!-- 댓글 삭제 -->
+						<a href="#" class="comment-del-btn">
+							<img src="https://www.iconninja.com/files/603/22/506/x-icon.png" width="10" height="10">
+						</a>
+					</div>
+					
+					<!-- 댓글 쓰기 -->
+					<div class="comment-write d-flex">
+						<input type="text" class="commnet-input form-control col-11" placeholder="댓글 달기">
+						<button type="button" class="comment-btn btn btn-light ml-1"><font color="blue">게시</font></button>
+					</div>
+				</div>
+				
+				
+			</div> <!-- 글반복 -->
+		</div> <!-- 타임라인 영역 -->
+	</div> <!-- 기초 div -->
+	
 </section>
 
 <th:block layout:fragment="script">
