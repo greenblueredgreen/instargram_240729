@@ -1,21 +1,21 @@
 @charset "UTF-8";
 
 #wrap {
-	width: 1200px;
+	width: 1300px;
 	margin: 0 auto;
 }
 
 header {
-	height: 1200px;
+	height: 1000px;
 }
 
 .contents {
-	height: 1200px;
+	height: 1000px;
 	width: 1000px;
 }
 
 footer {
-	height: 1200px;
+	height: 1000px;
 }
 
 .hr-sect {
