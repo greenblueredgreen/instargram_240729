@@ -7,22 +7,33 @@
 	<div class="contents-box">
 		<div class="mt-5 font-weigth-bold d-flex justify-content-center">
 			<h3>새 게시물 만들기</h3>
-			<button type="button" class="comment-btn btn btn-light ml-4"><font color="blue">공유하기</font></button>
+			<button id="writeBtn" class="comment-btn btn btn-light ml-4">
+				<font color="blue">공유하기</font>
+			</button>
 		</div>
 		<div class="d-flex mt-5">
-			<div>
-				<img alt="게시물 이미지" src="/img/p.png" width="400px">
+			<div class="file-upload d-flex">
+				<!-- file 태그를 숨겨두고 이미지를 클릭하면 파일을 클릭한 것과 같은 효과를 준다. -->
+				<input type="file" id="file" accept=".jpg, .png, .gif"
+					class="d-none">
+
+				<!-- 이미지에 마우스 올리면 마우스 커서가 link로 변경 -->
+				<a href="#" id="fileUploadBtn"><img width="35"
+					src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png"></a>
+
+				<div id="fileName" class="ml-2"></div>
+				
 			</div>
 
 			<div>
 				<div class="d-flex">
 					<!-- 로그인한 프로필 이미지, 아이디 -->
-					<img alt="프로필 이미지" src="/img/p.png" width="30px" height="30px">
+					<img alt="로고 이미지" src="/img/instargramLogo.png" width="30px"></a>
 					<div>아이디</div>
 				</div>
-				
+
 				<div>
-					<textarea rows="8" cols="30">문구를 입력해주세요....</textarea>
+					<textarea id="writeTextArea" rows="8" cols="30">문구를 입력해주세요....</textarea>
 				</div>
 			</div>
 		</div>
@@ -31,6 +42,98 @@
 
 <th:block layout:fragment="script">
 	<script>
-		
+		$(document).ready(function() {
+			
+			$("#fileUploadBtn").on('click', function(e) {
+				e.preventDefault(); 
+				//alert("클릭");
+				$("#file").click(); 
+			});
+			
+			// 파일이 선택될 때, 1.유효성 체크  2.파일명 노출
+			$("#file").on('change', function(e) {
+				// 취소를 누를 때 처리(파일이 비워지므로 .name에서 에러 발생)
+				let file = e.target.files[0];
+				if (file == null) {
+					$("#file").val("");
+					$("#fileName").text("");
+					return;
+				}
+				
+				//alert("이미지 선택");
+				let fileName = e.target.files[0].name; // leaves-8724660_640.jpg
+				console.log(fileName);
+				
+				//확장자체크
+				let ext = fileName.split(".").pop().toLowerCase();
+				console.log(ext);
+				
+				if (ext != "gif" && ext != "png" && ext != "jpg") {
+					alert("이미지 파일만 업로드 할 수 있습니다.");
+					$("#file").val(""); // 파일 태그에 올라온 것 제거(보이지 않지만 꼭! 처리)
+					$("#fileName").text(""); // 보여지고 있는 파일명 초기화
+					return;
+				}
+				
+				// 2. 파일명 노출
+				$("#fileName").text(fileName);
+			});
+
+			//글쓰기 (글올리기)
+			$("#writeBtn").on('click', function() {
+				//alert("게시버튼");
+
+				//게시물 내용 비필수
+				let content = $("#writeTextArea").val();
+				//alert(content)
+
+				//이미지 필수
+				let file = $("#file").val();
+				if (file == '') {
+					alert("파일을 업로드 해주세요!");
+					return;
+				}
+				
+				//파일 업로드 된 경우, 확장자 체크
+				let ext = file.split('.').pop().toLowerCase();
+				if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+					alert("gif, png, jpg, jpeg 파일만 업로드 할 수 있습니다.");
+					$('#file').val(''); // 파일을 비운다.
+					return;
+				}
+				
+				//폼태그
+				//파라미터 담겨진다 (content, file)
+				let formData = new FormData();
+				formData.append("content", content);
+				formData.append("file", $('#file')[0].files[0]);
+				
+				$.ajax({
+					//request
+					type: "post"
+					, url : "/post/create"
+					, data: formData
+					, enctype : "multipart/form-data"  //파일업로드 필수설정
+					, processData : false //파일업로드 필수설정
+					, contentType : false //파일업로드 필수설정
+					
+					//response
+					, success:function(data){
+						if(data.code == 200){
+							location.reload(); //현재페이지 reload
+						} else if (data.code == 403){ //비로그인
+							location.href="/user/sign-in-view";
+						} else{
+							alert(data.error_message);
+						}
+					}
+					, error:function(e){
+						alert("글 저장에 실패했습니다. 관리자에게 문의해주세요");
+					}
+				}); //ajax
+				
+
+			});
+		});
 	</script>
 </th:block>
