@@ -1,6 +1,7 @@
 package com.Instargram.post.bo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,12 +28,30 @@ public class PostBO {
 		
 		String imagePath = fileManagerService.uploadFile(file, userLoginId);
 		
-		return postRepository.save(
-				PostEntity.builder()
-				.userId(userId)
-				.content(content)
-				.imagePath(imagePath)
-				.build());
+		PostEntity  a = PostEntity.builder()  //객체 받아오기
+		.userId(userId)
+		.content(content)
+		.imagePath(imagePath)
+		.build();
+		// save -> extends JpaRepository<PostEntity, Integer >
+		// input : PostEntity/ new 대신에 builder()로 setter처럼 받아온다
+		return postRepository.save(a);
+	}
+	
+	//글 삭제 BO
+	public void deletePostByPostIdUserId(int postId, int userId) {
+		//기존 글 가져오기
+		PostEntity post = postRepository.findById(postId).orElse(null);
+		if(post== null) {
+			log.error("[delete post] postId:{}, userId:{}", postId, userId);
+			return;
+		}
+		
+		//글 삭제
+		postRepository.delete(post);
+		
+		// 이미지 있으면 삭제
+		
 	}
 	
 }
