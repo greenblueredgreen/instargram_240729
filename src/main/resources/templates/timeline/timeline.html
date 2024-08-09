@@ -65,9 +65,10 @@
 					
 					<!-- 댓글 쓰기 -->
 					<div class="comment-write d-flex">
-						<input type="text" class="commnet-input form-control col-11" placeholder="댓글 달기">
+						<input type="text" class="comment-input form-control col-11" placeholder="댓글 달기">
 						<button type="button" class="comment-btn btn btn-light ml-1" th:data-post-id="${post.id}" th:data-user-id="${session.userId}">게시</button>
-					</div>
+					
+					</div>															<!-- 별칭 사용이다. th:data-  까지가 선언, post-id가 별칭이된다. post-id로 사용가능하다 -->
 				</div>
 				
 				
@@ -81,6 +82,9 @@
     <script>
     	$(document).ready(function(){
     		$(".comment-btn").on('click', function(){
+    			//this : comment-btn 중에서 클릭이 일어난 그 하나. => this
+    			// 게시물이 5개가 있으면 어디서 comment-btn에 일어났는지 찾기가 어렵다
+    			// 따라서 this를 활용하면 5개의 게시물 중 클릭이 일어난 그 것을 가져오는 것이 this이다. 
     			let userId = $(this).data("user-id");
     			if(!userId){
     				//비로그인 상태
@@ -89,7 +93,12 @@
     				return;
     			}
     			
-    			let postId = $(this).data("post-id");
+    			let postId = $(this).data("post-id");  //위에서 사용된 별칭 post-id 가 사용된 것이다. 
+    			//siblings은 형제 요소를 선택하는 것이다.
+    			//형제 요소란 같은 줄에 있는 것을 의미하며 this (comment-btn)의 <button>태그의 형제를 의미한다.
+    			//현재 button태그의 형제는 윗줄의 <input type = ...> input태그이다.
+    			//siblings의 "input" 에 해당하는 모든 것을 가져오겠다는 의미가 된다.
+    			// 따라서 <input type="text" class="comment-input form-control col-11" placeholder="댓글 달기"> 의 값을 가져오게 된다. 
     			let content = $(this).siblings("input").val().trim();
     			if(!content){
     				alert("댓글 내용을 입력하세요");
