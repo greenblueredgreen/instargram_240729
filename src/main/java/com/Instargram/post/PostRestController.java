@@ -58,7 +58,9 @@ public class PostRestController {
 		return result;
 	}
 	
-	//글 삭제 API
+	
+	//TODO 글 삭제 API 
+	//일단 중단 (좋아요, 댓글도 함께 삭제해야하기 때문에 나중에)
 	@DeleteMapping("/delete")
 	public Map<String, Object> delete(
 			@RequestParam("postId") int postId,
@@ -75,7 +77,7 @@ public class PostRestController {
 		}
 		
 		//DB 삭제
-		postBO.
+		//postBO.
 		
 		result.put("code", 200);
 		result.put("result", "성공");
