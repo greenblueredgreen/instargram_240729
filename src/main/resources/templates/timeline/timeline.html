@@ -6,26 +6,28 @@
 <section layout:fragment="content" class="contents bg-danger">
 	<div class="contents-box">
 		<!-- 타임라인 영역 -->
-		<div class="timeline-box">
+		<div class="timeline-box my-5">
 			<!-- 글 반복 -->
-			<div class="card border roundend mt-2">
 			
+			<!-- postList에서 하나를 뽑아 post에 담는다. -->
+			<div th:each= "post:${postList}" class="card border rounded mt-2">
 				<!-- 글쓴이, 더보기 -->
 				<div class="p-2 d-flex justify-content-between">
 					<!-- 글쓴이 -->
-					<span>글쓴이  10시간전</span>
+					<!-- post로 접근 -->
+					<span class="font-weight-bold" th:text="${post.userId}">글쓴이</span>
+					<span>10시간</span>
 
-					
-					
 					<!-- 더보기 -->
-					<a href="#" class="more-btn">
+					<!-- 로그인 된 사람이랑 글쓴이가 같을때만 접근 가능하도록 -->
+					<a th:if = "${session.userId == post.userId}" href="#" class="more-btn">
 						<img src="https://www.iconninja.com/files/860/824/939/more-icon.png" width="30">
 					</a>
 				</div>
 				
 				<!-- 본문 이미지 -->
 				<div>
-					<img alt="게시물 이미지" src="/img/p.png" width="800px">
+					<img th:src="${post.imagePath}" alt="게시물 이미지"  width="800px">
 				</div>
 				
 				<!-- 좋아요 -->
@@ -39,8 +41,8 @@
 				
 				<!-- 글 -->
 				<div class="card-post m-3">
-					<span class="font-weigth-bold">글쓴이</span>
-					<span>글내용</span>
+					<span class="font-weight-bold" th:text="${post.userId}">글쓴이</span>
+					<span th:text=${post.content}>글내용</span>
 				</div>
 				
 				<!-- 댓글 제목 -->

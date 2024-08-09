@@ -1,7 +1,8 @@
 package com.Instargram.post.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,6 +21,12 @@ public class PostBO {
 	
 	@Autowired
 	private PostRepository postRepository;
+	
+	//글 가져오는 BO -> 글을 가져와서 타임라인에 Model에 담아서 뿌리기
+	public List<PostEntity> getPostEntityList(){
+		return postRepository.findByOrderByIdDesc();
+	}
+	
 
 	//글 추가 BO
 	public PostEntity addPost(

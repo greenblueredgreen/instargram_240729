@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.Instargram.post.entity.PostEntity;
 
 public interface PostRepository extends JpaRepository<PostEntity, Integer >{
-	//가장 최신의 것 가져오기
+	
+	//글 가져오는 repository
 	public List<PostEntity> findByOrderByIdDesc();
 }
