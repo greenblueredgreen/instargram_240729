@@ -66,7 +66,7 @@
 					<!-- 댓글 쓰기 -->
 					<div class="comment-write d-flex">
 						<input type="text" class="commnet-input form-control col-11" placeholder="댓글 달기">
-						<button type="button" class="comment-btn btn btn-light ml-1"><font color="blue">게시</font></button>
+						<button type="button" class="comment-btn btn btn-light ml-1" th:data-post-id="${post.id}" th:data-user-id="${session.userId}">게시</button>
 					</div>
 				</div>
 				
@@ -79,6 +79,43 @@
 
 <th:block layout:fragment="script">
     <script>
+    	$(document).ready(function(){
+    		$(".comment-btn").on('click', function(){
+    			let userId = $(this).data("user-id");
+    			if(!userId){
+    				//비로그인 상태
+    				alert("로그인 먼저 해주세요!");
+    				location.href="/user/sign-in-view";
+    				return;
+    			}
+    			
+    			let postId = $(this).data("post-id");
+    			let content = $(this).siblings("input").val().trim();
+    			if(!content){
+    				alert("댓글 내용을 입력하세요");
+    				return;
+    			}
+    			
+    			$.ajax({
+    				type : "post"
+    				, url : "/comment/create"
+    				, data : {"postId" : postId, "content" : content}
+    				, success:function(data){
+    					if(data.code == 200){
+    						location.reload(true);
+    					} else if (data.code==403){
+    						//비로그인 상태
+    						location.href = "/user/sign-in-view";
+    					} else{
+    						alert(data.error_message);
+    					}
+    				}
+    				, error:function(e){
+    					alert("댓글 쓰기에 실패했습니다");
+    				}
+    			});
+    		});
+    	});
     </script>
 </th:block>
 
