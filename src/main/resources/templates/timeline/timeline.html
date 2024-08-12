@@ -10,24 +10,24 @@
 			<!-- 글 반복 -->
 			
 			<!-- postList에서 하나를 뽑아 post에 담는다. -->
-			<div th:each= "post:${postList}" class="card border rounded mt-2">
+			<div th:each= "cardView:${cardViewList}" class="card border rounded mt-2">
 				<!-- 글쓴이, 더보기 -->
 				<div class="p-2 d-flex justify-content-between">
 					<!-- 글쓴이 -->
 					<!-- post로 접근 -->
-					<span class="font-weight-bold" th:text="${post.userId}">글쓴이</span>
+					<span class="font-weight-bold" th:text="${cardView.user.loginId}">글쓴이</span>
 					<span>10시간</span>
 
 					<!-- 더보기 -->
 					<!-- 로그인 된 사람이랑 글쓴이가 같을때만 접근 가능하도록 -->
-					<a th:if = "${session.userId == post.userId}" href="#" class="more-btn">
+					<a th:if = "${session.userId == cardView.post.userId}" href="#" class="more-btn">
 						<img src="https://www.iconninja.com/files/860/824/939/more-icon.png" width="30">
 					</a>
 				</div>
 				
 				<!-- 본문 이미지 -->
 				<div>
-					<img th:src="${post.imagePath}" alt="게시물 이미지"  width="800px">
+					<img th:src="${cardView.post.imagePath}" alt="게시물 이미지"  width="800px">
 				</div>
 				
 				<!-- 좋아요 -->
@@ -41,8 +41,8 @@
 				
 				<!-- 글 -->
 				<div class="card-post m-3">
-					<span class="font-weight-bold" th:text="${post.userId}">글쓴이</span>
-					<span th:text=${post.content}>글내용</span>
+					<span class="font-weight-bold" th:text="${cardView.post.userId}">글쓴이</span>
+					<span th:text=${cardView.post.content}>글내용</span>
 				</div>
 				
 				<!-- 댓글 제목 -->
@@ -51,11 +51,11 @@
 				</div>
 				
 				<!-- 댓글 목록 -->
-				<div class="card-comment-list m-2">
+				<div class="card-comment-list m-2" th:each="commentView : ${cardView.commentList}">
 					<!-- 댓글들 -->
 					<div class="card-comment m-1">
-						<span class="font-weight-bold">댓글쓰니</span>
-						<span class="ml-4">댓글 내용임</span>
+						<span class="font-weight-bold" th:text="${commentView.user.loginId}">댓글쓰니</span>
+						<span class="ml-4" th:text="${commentView.comment.content}">댓글 내용임</span>
 						
 						<!-- 댓글 삭제 -->
 						<a href="#" class="comment-del-btn">
@@ -66,7 +66,7 @@
 					<!-- 댓글 쓰기 -->
 					<div class="comment-write d-flex">
 						<input type="text" class="comment-input form-control col-11" placeholder="댓글 달기">
-						<button type="button" class="comment-btn btn btn-light ml-1" th:data-post-id="${post.id}" th:data-user-id="${session.userId}">게시</button>
+						<button type="button" class="comment-btn btn btn-light ml-1" th:data-post-id="${cardView.post.id}" th:data-user-id="${session.userId}">게시</button>
 					
 					</div>															<!-- 별칭 사용이다. th:data-  까지가 선언, post-id가 별칭이된다. post-id로 사용가능하다 -->
 				</div>

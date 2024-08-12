@@ -29,7 +29,7 @@ public class CommentBO {
 	//댓글 뿌리기 BO
 	//input : 글번호
 	//output : List<CommentView> //특정 게시물의 댓글들
-	public List<CommentView> generatedCommentViewListByPostId(int postId){
+	public List<CommentView> generateCommentViewListByPostId(int postId){
 		
 		//화면에 뿌릴 리스트 선언
 		List<CommentView> commentViewList = new ArrayList<>();
