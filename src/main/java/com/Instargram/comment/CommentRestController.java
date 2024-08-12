@@ -39,7 +39,7 @@ public class CommentRestController {
 		}
 		
 		//댓글 db에 삽입
-		commentBO.addComment(postId, postId, content);
+		commentBO.addComment(postId, userId, content);
 		
 		//응답값
 		result.put("code", 200);

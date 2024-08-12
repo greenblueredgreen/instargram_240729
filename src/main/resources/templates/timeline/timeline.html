@@ -51,11 +51,12 @@
 				</div>
 				
 				<!-- 댓글 목록 -->
-				<div class="card-comment-list m-2" th:each="commentView : ${cardView.commentList}">
+				<div class="card-comment-list m-2">
 					<!-- 댓글들 -->
-					<div class="card-comment m-1">
+					<div class="card-comment m-1" th:each="commentView : ${cardView.commentList}">
 						<span class="font-weight-bold" th:text="${commentView.user.loginId}">댓글쓰니</span>
 						<span class="ml-4" th:text="${commentView.comment.content}">댓글 내용임</span>
+						
 						
 						<!-- 댓글 삭제 -->
 						<a href="#" class="comment-del-btn">
@@ -67,11 +68,8 @@
 					<div class="comment-write d-flex">
 						<input type="text" class="comment-input form-control col-11" placeholder="댓글 달기">
 						<button type="button" class="comment-btn btn btn-light ml-1" th:data-post-id="${cardView.post.id}" th:data-user-id="${session.userId}">게시</button>
-					
 					</div>															<!-- 별칭 사용이다. th:data-  까지가 선언, post-id가 별칭이된다. post-id로 사용가능하다 -->
 				</div>
-				
-				
 			</div> <!-- 글반복 -->
 		</div> <!-- 타임라인 영역 -->
 	</div> <!-- 기초 div -->
