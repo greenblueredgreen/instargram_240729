@@ -20,4 +20,32 @@
 			,NOW()
 		);
 	</insert>
+	
+	<!-- 전체 게시물의 모든 댓글들 -->
+	<select id="selectCommentList" resultType ="com.Instargram.comment.domain.Comment">
+		SELECT 
+			`id`
+			,`userId`
+			,`postId`
+			,`content`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`comment`
+	</select>
+	
+	<!-- 글번호에 해당하는 댓글들 -->
+	<select id="selectCommentListByPostId" parameterType = "int" resultType ="com.Instargram.comment.domain.Comment">
+		SELECT 
+			`id`
+			,`userId`
+			,`postId`
+			,`content`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`comment`
+		WHERE
+			`postId` = #{postId}
+	</select>
 </mapper>

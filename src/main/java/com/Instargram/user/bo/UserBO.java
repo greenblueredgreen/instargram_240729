@@ -17,7 +17,7 @@ public class UserBO {
 		return userRepository.findByLoginId(loginId);
 	}
 	
-	//회원가입
+	//회원가입 BO
 	public UserEntity addUser(
 			String phoneNumber, String email, 
 			String name, String loginId, String password) {
@@ -30,10 +30,14 @@ public class UserBO {
 				.build());
 	}
 	
-	//로그인 : 아이디, 비번
+	//로그인 : 아이디, 비번 BO
 	public UserEntity getUserEntityByLoginIdPassword(
 			String loginId, String password) {
 		return userRepository.findByLoginIdAndPassword(loginId, password);
 	}
 	
+	//댓글 쓴 사람의 정보를 가져오는 BO
+	public UserEntity getUserEntityById(int userId) {
+		return userRepository.findById(userId).orElse(null);
+	}
 }

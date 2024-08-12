@@ -1,7 +1,11 @@
 package com.Instargram.comment.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import com.Instargram.comment.domain.Comment;
 
 @Mapper
 public interface CommentMapper {
@@ -11,5 +15,10 @@ public interface CommentMapper {
 			@Param("postId") int postId, 
 			@Param("userId") int userId, 
 			@Param("content") String content);
-	
+
+	//전체게시물 모든 댓글들
+	public List<Comment> selectCommentList();
+
+	//특정 글번호 게시물의 댓글들
+	public List<Comment> selectCommentListByPostId(int postId);
 }
