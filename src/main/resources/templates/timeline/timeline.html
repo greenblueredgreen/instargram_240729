@@ -32,7 +32,7 @@
 				
 				<!-- 좋아요 -->
 				<div class="card-like m-3">
-					<a href="#" class="like-btn">
+					<a href="#" class="like-btn" th:data-post-id="${cardView.post.id}">
 						<img src="https://www.iconninja.com/files/214/518/441/heart-icon.png" width="18" height="18" alt="empty heart">
 						<img src="https://www.iconninja.com/files/527/809/128/heart-icon.png" width="18" height="18" alt="filled heart">
 					</a>
@@ -147,6 +147,32 @@
     					alert("댓글 삭제에 실패했습니다");
     				}
     			}); //ajax
+    		}); //댓글삭제 btn
+    		
+    		//좋아요 설정,해제
+    		$(".like-btn").on('click', function(e){
+    			e.preventDefault();
+    			
+    			//글번호 꺼내기
+    			let postId = $(this).data("post-id");
+    			//alert(postId);
+    			
+    			$.ajax({
+    				url: "/like/" + postId
+    				, success : function(data){
+    					if(data.code == 200){
+    						location.reload(); //새로고침 -> 타임라인 뿌려질 때 하트 여부 나타난다
+    					} else if (data.code == 403){
+    						//비로그인 상태시 로그인페이지로 이동
+    						alert(data.error_message);
+    						location.href= "/user/sign-in-view";
+    					}
+    				}
+    			, error:function(e){
+    				alert("좋아요를 하는데 실패했습니다");
+    				}
+    			});
+    			
     		});
     	});
     </script>
