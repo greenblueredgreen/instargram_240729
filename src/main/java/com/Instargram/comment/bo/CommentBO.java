@@ -25,7 +25,13 @@ public class CommentBO {
 	public void addComment(int postId, int userId, String content) {
 		commentMapper.insertComment(postId, userId, content);
 	}
-
+	
+	// 댓글 삭제하기 BO
+	public void deleteCommentById(int id) {
+		commentMapper.deleteCommentById(id);
+	}
+	
+	// 댓글 뿌리기 BO
 	// input:글번호 output:List<CommentView>
 	public List<CommentView> generateCommentViewListByPostId(int postId) {
 		List<CommentView> commentViewList = new ArrayList<>();
@@ -51,7 +57,6 @@ public class CommentBO {
 		}
 
 		return commentViewList;
-		
 	}
 
 //	// 댓글 뿌리기 BO
