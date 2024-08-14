@@ -20,4 +20,7 @@ public interface LikeMapper {
 	public void deleteLikeByPostIdUserId(
 			@Param("postId") int postId,
 			@Param("userId") int userId);
+	
+	//글 삭제를 위한 좋아요 삭제
+	public void deleteLikeByPostId(int postId);
 }

@@ -59,7 +59,12 @@ public class PostRestController {
 	}
 	
 	
-	//TODO 글 삭제 API 
+	/**
+	 * 글 삭제 api
+	 * @param postId
+	 * @param session
+	 * @return
+	 */
 	//일단 중단 (좋아요, 댓글도 함께 삭제해야하기 때문에 나중에)
 	@DeleteMapping("/delete")
 	public Map<String, Object> delete(
@@ -77,7 +82,7 @@ public class PostRestController {
 		}
 		
 		//DB 삭제
-		//postBO.
+		postBO.deletePostByPostIdUserId(postId, postId);
 		
 		result.put("code", 200);
 		result.put("result", "성공");

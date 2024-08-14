@@ -20,7 +20,7 @@
 
 					<!-- 더보기 -->
 					<!-- 로그인 된 사람이랑 글쓴이가 같을때만 접근 가능하도록 -->
-					<a th:if = "${session.userId == cardView.post.userId}" href="#" class="more-btn">
+					<a th:if = "${session.userId == cardView.post.userId}" href="#" class="more-btn" th:data-post-id="${cardView.post.id}" data-toggle="modal" data-target="#modal">
 						<img src="https://www.iconninja.com/files/860/824/939/more-icon.png" width="30">
 					</a>
 				</div>
@@ -72,6 +72,21 @@
 				</div>
 			</div> <!-- 글반복 -->
 		</div> <!-- 타임라인 영역 -->
+		
+		<!-- Modal: 타임리프 레이아웃 때문에 section 태그 안쪽에 위치 -->
+		<div class="modal fade" id="modal">
+			<!-- modal-sm:작은 모달창, modal-dialog-centered:수직 가운데 정렬 -->
+			<div class="modal-dialog modal-sm modal-dialog-centered">
+				<div class="modal-content text-center">
+		      		<div class="py-3">
+		      			<a href="#" id="postDeleteBtn">삭제하기</a>
+		      		</div>
+		      		<div class="py-3 border-top">
+		      			<a href="#" data-dismiss="modal">취소</a>
+		      		</div>
+				</div>
+			</div>
+		</div>
 	</div> <!-- 기초 div -->
 	
 </section>
@@ -171,9 +186,43 @@
     				, error:function(e){
     					alert("좋아요를 하는데 실패했습니다");
     				}
-    			});
+    			}); //ajax
+    		}); //like
+    		
+    		//더보기
+    		$(".more-btn").on('click', function(e){
+    			e.preventDefault();
     			
+    			let postId = $(this).data('post-id');
+    			
+    			$("#modal").data('post-id', postId);
+    			//alert($("#modal").data('post-id'));
     		});
+    		
+    		$("#postDeleteBtn").on('click', function(e){
+    			e.preventDefault();
+    			
+    			let postId = $("#modal").data("post-id");
+    			//alert(postId);
+    			
+    			//글삭제 ajax
+    			$.ajax({
+    			type : "delete"
+    			, url: "/post/delete"
+    			, data: {"postId" : postId}
+    			, success : function(data){
+    				if(data.code == 200){
+    					location.reload(true);
+    				} else {
+    					alert(data.error_message);
+    					}
+    				}
+    			, error:function(e){
+    				alert("삭제하는데 실패!")
+    				}
+    			});
+    		});
+    		
     	});
     </script>
 </th:block>

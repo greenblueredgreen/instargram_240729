@@ -31,6 +31,13 @@ public class CommentBO {
 		commentMapper.deleteCommentById(id);
 	}
 	
+	//글 삭제를 위한 댓글 지우기 BO (postBO에서 삭제됨)
+	public void deleteCommentsByPostId(int postId) {
+		commentMapper.deleteCommentsByPostId(postId);
+	}
+	
+	
+	
 	// 댓글 뿌리기 BO
 	// input:글번호 output:List<CommentView>
 	public List<CommentView> generateCommentViewListByPostId(int postId) {

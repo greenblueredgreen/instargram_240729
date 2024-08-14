@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.Instargram.comment.bo.CommentBO;
 import com.Instargram.common.FileManagerService;
+import com.Instargram.like.bo.LikeBO;
 import com.Instargram.post.entity.PostEntity;
 import com.Instargram.post.repository.PostRepository;
 
@@ -21,6 +23,12 @@ public class PostBO {
 	
 	@Autowired
 	private PostRepository postRepository;
+	
+	@Autowired
+	private CommentBO commentBO;
+	
+	@Autowired
+	private LikeBO likeBO;
 	
 	//글 가져오는 BO -> 글을 가져와서 타임라인에 Model에 담아서 뿌리기
 	public List<PostEntity> getPostEntityList(){
@@ -58,7 +66,12 @@ public class PostBO {
 		postRepository.delete(post);
 		
 		// 이미지 있으면 삭제
+		fileManagerService.deleteFile(post.getImagePath());
 		
+		//댓글들 삭제
+		commentBO.deleteCommentsByPostId(postId);
+		
+		//좋아요들 삭제
+		likeBO.deletLikeByPostId(postId);
 	}
-	
 }

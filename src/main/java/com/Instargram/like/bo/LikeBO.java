@@ -41,4 +41,9 @@ public class LikeBO {
 		//행이 있으면 true, 없으면 false (있으면 채워진 하트 보여준다)
 		return likeMapper.selectLikeCountByPostIdOrUserId(postId, userId) == 1 ? true : false;
 	}
+	
+	//글 삭제를 위한 좋아요 삭제 BO
+	public void deletLikeByPostId(int postId) {
+		likeMapper.deleteLikeByPostId(postId);
+	}
 }

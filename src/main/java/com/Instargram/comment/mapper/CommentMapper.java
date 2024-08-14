@@ -25,4 +25,7 @@ public interface CommentMapper {
 
 	//특정 글번호 게시물의 댓글들
 	public List<Comment> selectCommentListByPostId(int postId);
+	
+	//글 삭제를 위핸 댓글 삭제 mapper
+	public void deleteCommentsByPostId(int postId);
 }
