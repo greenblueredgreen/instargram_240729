@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.Instargram.comment.bo.CommentBO;
 import com.Instargram.comment.domain.CommentView;
+import com.Instargram.like.bo.LikeBO;
 import com.Instargram.post.bo.PostBO;
 import com.Instargram.post.entity.PostEntity;
 import com.Instargram.timeline.domain.CardView;
@@ -25,9 +26,13 @@ public class TimelineBO {
 	
 	@Autowired
 	private CommentBO commentBO;
+	
+	@Autowired
+	private LikeBO likeBO;
 
 	//cardView 리스트 반환 BO
-	public List<CardView> generateCardViewList(){
+	public List<CardView> generateCardViewList(Integer userId){
+		//비로그인도 타임라인 볼 수 있으므로 null 가능
 		
 		//cardViewList 선언
 		List<CardView> cardViewList = new ArrayList<>();
@@ -51,6 +56,14 @@ public class TimelineBO {
 			//댓글 n개
 			List<CommentView> commentViewList = commentBO.generateCommentViewListByPostId(post.getId());
 			card.setCommentList(commentViewList);
+			
+			//좋아요 개수
+			int likeCount = likeBO.getLikeCountByPostId(post.getId());
+			card.setLikeCount(likeCount);
+			
+			//좋아요 여부 채우기
+			//true, false를 likeBO에서 받아온다.
+			card.setFilledLike(likeBO.filledLikeByPostIdUserId(post.getId(), userId));
 			
 			//반드시 큰 리스트에 넣기
 			cardViewList.add(card);

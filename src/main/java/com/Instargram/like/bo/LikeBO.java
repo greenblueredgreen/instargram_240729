@@ -25,13 +25,27 @@ public class LikeBO {
 		}
 	}
 	
-	//user와 post의 좋아요 개수 들고오기
-	public int getLikeCountByPostIdUserId(int postId, int userId) {
-		return likeMapper.selectLikeCountByPostIdOrUserId(postId, userId);
-	}
+	//사실상 없어도 되는 코드아닌가...? 고민중.
+	//postId에 해당하는 userId의 좋아요 개수 들고오기
+//	public int getLikeCountByPostIdUserId(int postId, int userId) {
+//		return likeMapper.selectLikeCountByPostIdOrUserId(postId, userId);
+//	}
 	
-	//게시글의 좋아요 개수 들고오기
+	
+	//TimelineBO 에서 호출
+	//게시글의 좋아요 개수 들고오기 -> timeline.html의 좋아요 개수 가져오는 bo
 	public int getLikeCountByPostId(int postId) {
 		return likeMapper.selectLikeCountByPostIdOrUserId(postId, null);
+	}
+	
+	//TimelineBO 에서 호출
+	// 좋아요 채울지 여부 => 만약 false면 빈하트 보여줌(timeline.html 타임리프)
+	public boolean filledLikeByPostIdUserId(int postId, Integer userId) {
+		if(userId ==  null) {
+			return false;
+		}
+		
+		//행이 있으면 true, 없으면 false (있으면 채워진 하트 보여준다)
+		return likeMapper.selectLikeCountByPostIdOrUserId(postId, userId) == 1 ? true : false;
 	}
 }
