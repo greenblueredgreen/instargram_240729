@@ -25,13 +25,6 @@ public class LikeBO {
 		}
 	}
 	
-	//사실상 없어도 되는 코드아닌가...? 고민중.
-	//postId에 해당하는 userId의 좋아요 개수 들고오기
-//	public int getLikeCountByPostIdUserId(int postId, int userId) {
-//		return likeMapper.selectLikeCountByPostIdOrUserId(postId, userId);
-//	}
-	
-	
 	//TimelineBO 에서 호출
 	//게시글의 좋아요 개수 들고오기 -> timeline.html의 좋아요 개수 가져오는 bo
 	public int getLikeCountByPostId(int postId) {
