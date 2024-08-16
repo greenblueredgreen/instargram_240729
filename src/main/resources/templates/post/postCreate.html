@@ -87,7 +87,6 @@
 
 				//게시물 내용 비필수
 				let content = $("#writeTextArea").val();
-				//alert(content)
 
 				//이미지 필수
 				let file = $("#file").val();
@@ -115,6 +114,7 @@
 					type: "post"
 					, url : "/post/create"
 					, data: formData
+					//이 코드들은 그냥 파일 업로드하는 용도이다
 					, enctype : "multipart/form-data"  //파일업로드 필수설정
 					, processData : false //파일업로드 필수설정
 					, contentType : false //파일업로드 필수설정
@@ -133,8 +133,6 @@
 						alert("글 저장에 실패했습니다. 관리자에게 문의해주세요");
 					}
 				}); //ajax
-				
-
 			});
 		});
 	</script>

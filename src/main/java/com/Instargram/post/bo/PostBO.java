@@ -10,6 +10,7 @@ import com.Instargram.comment.bo.CommentBO;
 import com.Instargram.common.FileManagerService;
 import com.Instargram.like.bo.LikeBO;
 import com.Instargram.post.entity.PostEntity;
+import com.Instargram.post.mapper.PostMapper;
 import com.Instargram.post.repository.PostRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,9 +31,17 @@ public class PostBO {
 	@Autowired
 	private LikeBO likeBO;
 	
+	@Autowired
+	private PostMapper postMapper;
+	
 	//글 가져오는 BO -> 글을 가져와서 타임라인에 Model에 담아서 뿌리기
 	public List<PostEntity> getPostEntityList(){
 		return postRepository.findByOrderByIdDesc();
+	}
+	
+	//게시글 개수 가져오는 BO
+	public int getPostCountByUserId(int userId) {
+		return postMapper.getPostCountByUserId(userId);
 	}
 	
 
@@ -43,14 +52,12 @@ public class PostBO {
 		
 		String imagePath = fileManagerService.uploadFile(file, userLoginId);
 		
-		PostEntity  a = PostEntity.builder()  //객체 받아오기
-		.userId(userId)
-		.content(content)
-		.imagePath(imagePath)
-		.build();
-		// save -> extends JpaRepository<PostEntity, Integer >
-		// input : PostEntity/ new 대신에 builder()로 setter처럼 받아온다
-		return postRepository.save(a);
+		return postRepository.save(
+				PostEntity.builder()
+				.userId(userId)
+				.content(content)
+				.imagePath(imagePath)
+				.build());
 	}
 	
 	//글 삭제 BO

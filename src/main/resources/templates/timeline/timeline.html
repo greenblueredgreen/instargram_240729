@@ -26,8 +26,8 @@
 				</div>
 				
 				<!-- 본문 이미지 -->
-				<div>
-					<img th:src="${cardView.post.imagePath}" alt="게시물 이미지"  width="800px">
+				<div class="card-img">
+					<img th:src="${cardView.post.imagePath}" class="w-100" alt="본문 이미지">
 				</div>
 				
 				<!-- 좋아요 -->
@@ -199,6 +199,7 @@
     			//alert($("#modal").data('post-id'));
     		});
     		
+    		//글삭제 
     		$("#postDeleteBtn").on('click', function(e){
     			e.preventDefault();
     			

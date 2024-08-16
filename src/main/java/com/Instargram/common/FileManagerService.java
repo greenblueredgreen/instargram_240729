@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class FileManagerService {
 	// 실제 업로드가 된 이미지가 저장될 서버의 경로
-	public static final String FILE_UPLOAD_PATH = "C:\\6_spring_project\\instargram\\instargram_workspace\\images";
+	public static final String FILE_UPLOAD_PATH = "C:\\6_spring_project\\instargram\\instargram_workspace\\images/";
 
 	public String uploadFile(MultipartFile file, String loginId) {
 		String directoryName = loginId + "_" + System.currentTimeMillis();
@@ -40,8 +40,6 @@ public class FileManagerService {
 		return "/images/" + directoryName + "/" + file.getOriginalFilename();
 	}
 
-	
-	
 	//파일 삭제 
 	// input:이미지 경로(path) output:X
 	public void deleteFile(String imagePath) {
