@@ -14,6 +14,7 @@
 		<div class="d-flex mt-5">
 			<div class="file-upload d-flex">
 				<!-- file 태그를 숨겨두고 이미지를 클릭하면 파일을 클릭한 것과 같은 효과를 준다. -->
+				
 				<input type="file" id="file" accept=".jpg, .png, .gif"
 					class="d-none">
 
@@ -22,6 +23,9 @@
 					src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png"></a>
 
 				<div id="fileName" class="ml-2"></div>
+				<div class="card-img">
+					<img th:src="${file}" class="w-100" alt="본문 이미지">
+				</div>
 					
 				<!-- 타임리프 사진 띄우기 -->
 					
@@ -31,11 +35,11 @@
 				<div class="d-flex">
 					<!-- 로그인한 프로필 이미지, 아이디 -->
 					<img alt="로고 이미지" src="/img/instargramLogo.png" width="30px"></a>
-					<div>아이디</div>
+					<div th:text="${session.userLoginId}">아이디</div>
 				</div>
 
 				<div>
-					<textarea id="writeTextArea" rows="8" cols="30">문구를 입력해주세요....</textarea>
+					<textarea rows="10" id="content" class="form-control" placeholder="내용을 입력하세요"></textarea>
 				</div>
 			</div>
 		</div>
@@ -115,7 +119,8 @@
 					, url : "/post/create"
 					, data: formData
 					//이 코드들은 그냥 파일 업로드하는 용도이다
-					, enctype : "multipart/form-data"  //파일업로드 필수설정
+					, enctype : "multipart/form-data"  
+					//파일업로드 필수설정
 					, processData : false //파일업로드 필수설정
 					, contentType : false //파일업로드 필수설정
 					
