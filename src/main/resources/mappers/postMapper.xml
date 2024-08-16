@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.Instargram.post.mapper.PostMapper">
+	<!-- 프로필의 게시물 개수 가져오는 xml -->
+	<select id="getPostCountByUserId" parameterType="int" resultType="int">
+		SELECT
+			COUNT(1)
+		FROM
+			`post`
+		WHERE
+			`userId` = #{userId}
+	</select>
+	
+	<!-- 내가 쓴 게시물만 들고오는 xml -->
+	<select id="getPostEntityListByUserId" parameterType="int" resultType="int">
+		SELECT
+			`id`
+			,`userId`
+			,`imagePath`
+			,`content`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`post`
+		WHERE
+			`userId` = #{userId}
+	</select>
+ </mapper>

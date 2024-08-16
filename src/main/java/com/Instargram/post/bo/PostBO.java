@@ -18,67 +18,59 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class PostBO {
-	
+
 	@Autowired
 	private FileManagerService fileManagerService;
-	
+
 	@Autowired
 	private PostRepository postRepository;
-	
+
 	@Autowired
 	private CommentBO commentBO;
-	
+
 	@Autowired
 	private LikeBO likeBO;
-	
+
 	@Autowired
 	private PostMapper postMapper;
-	
-	//글 가져오는 BO -> 글을 가져와서 타임라인에 Model에 담아서 뿌리기
-	public List<PostEntity> getPostEntityList(){
+
+	// 글 가져오는 BO -> 글을 가져와서 타임라인에 Model에 담아서 뿌리기
+	public List<PostEntity> getPostEntityList() {
 		return postRepository.findByOrderByIdDesc();
 	}
-	
-	//게시글 개수 가져오는 BO
+
+	// 게시글 개수 가져오는 BO
 	public int getPostCountByUserId(int userId) {
 		return postMapper.getPostCountByUserId(userId);
 	}
-	
 
-	//글 추가 BO
-	public PostEntity addPost(
-			int userId, String userLoginId, 
-			String content, MultipartFile file) {
-		
+	// 글 추가 BO
+	public PostEntity addPost(int userId, String userLoginId, String content, MultipartFile file) {
+
 		String imagePath = fileManagerService.uploadFile(file, userLoginId);
-		
-		return postRepository.save(
-				PostEntity.builder()
-				.userId(userId)
-				.content(content)
-				.imagePath(imagePath)
-				.build());
+
+		return postRepository.save(PostEntity.builder().userId(userId).content(content).imagePath(imagePath).build());
 	}
-	
-	//글 삭제 BO
+
+	// 글 삭제 BO
 	public void deletePostByPostIdUserId(int postId, int userId) {
-		//기존 글 가져오기
+		// 기존 글 가져오기
 		PostEntity post = postRepository.findById(postId).orElse(null);
-		if(post== null) {
+		if (post == null) {
 			log.error("[delete post] postId:{}, userId:{}", postId, userId);
 			return;
 		}
-		
-		//글 삭제
+
+		// 글 삭제
 		postRepository.delete(post);
-		
+
 		// 이미지 있으면 삭제
 		fileManagerService.deleteFile(post.getImagePath());
-		
-		//댓글들 삭제
+
+		// 댓글들 삭제
 		commentBO.deleteCommentsByPostId(postId);
-		
-		//좋아요들 삭제
+
+		// 좋아요들 삭제
 		likeBO.deletLikeByPostId(postId);
 	}
 }
