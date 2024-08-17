@@ -47,4 +47,13 @@
 		WHERE
 			`postId` = #{postId}
 	</delete>
+	
+	<select id="selectpostIdByUserIdLike" parameterType="int">
+		SELECT
+			`postId`
+		FROM
+			`like`
+		WHERE
+			`userId` = #{userId}
+	</select>
  </mapper>

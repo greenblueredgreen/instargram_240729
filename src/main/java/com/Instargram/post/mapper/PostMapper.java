@@ -10,4 +10,6 @@ import com.Instargram.post.entity.PostEntity;
 public interface PostMapper {
 
 	public int getPostCountByUserId(int userId);
+	
+	public List<PostEntity> selectPostEntityListByPostID(int id);
 }

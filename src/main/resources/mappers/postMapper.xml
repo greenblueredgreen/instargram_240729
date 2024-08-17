@@ -14,7 +14,7 @@
 	</select>
 	
 	<!-- 내가 쓴 게시물만 들고오는 xml -->
-	<select id="getPostEntityListByUserId" parameterType="int" resultType="int">
+	<select id="getPostEntityListByUserId" parameterType="int">
 		SELECT
 			`id`
 			,`userId`
@@ -26,5 +26,19 @@
 			`post`
 		WHERE
 			`userId` = #{userId}
+	</select>
+	
+	<select id="selectPostEntityListByPostID" parameterType="int">
+		SELECT
+			`id`
+			,`userId`
+			,`imagePath`
+			,`content`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`post`
+		WHERE
+			`id` = #{id}
 	</select>
  </mapper>

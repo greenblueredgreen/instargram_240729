@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Instargram.like.bo.LikeBO;
+import com.Instargram.post.bo.PostBO;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -18,6 +19,7 @@ public class LikeRestController {
 	@Autowired
 	private LikeBO likeBO;
 	
+	//좋아요 요청 
 	@RequestMapping("/like/{postId}")
 	public Map<String, Object> liekToggle(
 			@PathVariable(name="postId") int postId,

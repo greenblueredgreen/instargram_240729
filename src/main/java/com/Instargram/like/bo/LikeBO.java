@@ -1,15 +1,22 @@
 package com.Instargram.like.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Instargram.like.mapper.LikeMapper;
+import com.Instargram.post.entity.PostEntity;
+import com.Instargram.post.mapper.PostMapper;
 
 @Service
 public class LikeBO {
 
 	@Autowired
 	private LikeMapper likeMapper;
+	
+	@Autowired
+	private PostMapper postMapper;
 	
 	//좋아요 여부 체크 후 좋아요 삭제, 추가 BO
 	public void likeToggle(int postId, int userId) {
@@ -46,4 +53,10 @@ public class LikeBO {
 	public void deletLikeByPostId(int postId) {
 		likeMapper.deleteLikeByPostId(postId);
 	}
+	
+	//userId가 좋아요 한 글번호들을 리스트에 담아 들고오는 BO
+	public List<Integer> postIdByUserIdLike(int userId){
+		return likeMapper.selectpostIdByUserIdLike(userId);
+	}
+
 }

@@ -1,5 +1,7 @@
 package com.Instargram.like.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -23,4 +25,7 @@ public interface LikeMapper {
 	
 	//글 삭제를 위한 좋아요 삭제
 	public void deleteLikeByPostId(int postId);
+	
+	//userId가 좋아요한 글의 글번호들을 리스트에 담아 들고오기
+	public List<Integer> selectpostIdByUserIdLike(int userId);
 }

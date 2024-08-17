@@ -43,6 +43,12 @@ public class PostBO {
 	public int getPostCountByUserId(int userId) {
 		return postMapper.getPostCountByUserId(userId);
 	}
+	
+	public List<PostEntity> getPostEntityListByPostID(int postId) {
+		return postMapper.selectPostEntityListByPostID(postId);
+	}
+	
+	
 
 	// 글 추가 BO
 	public PostEntity addPost(int userId, String userLoginId, String content, MultipartFile file) {
@@ -51,7 +57,7 @@ public class PostBO {
 
 		return postRepository.save(PostEntity.builder().userId(userId).content(content).imagePath(imagePath).build());
 	}
-
+	
 	// 글 삭제 BO
 	public void deletePostByPostIdUserId(int postId, int userId) {
 		// 기존 글 가져오기

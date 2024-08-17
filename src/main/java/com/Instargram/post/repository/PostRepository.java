@@ -10,4 +10,5 @@ public interface PostRepository extends JpaRepository<PostEntity, Integer >{
 	
 	//글 가져오는 repository
 	public List<PostEntity> findByOrderByIdDesc();
+
 }

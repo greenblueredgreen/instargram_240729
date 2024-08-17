@@ -18,10 +18,10 @@
 			</thead>
 			<tbody>
 				<!-- 타임리프 반복문 돌기 -->
-				<tr>
-					<td>좋아요 한 글 번호</td>
-					<td>좋아요한 글 제목</td>
-					<td>좋아요 날짜 : 2024-07-16</td>
+				<tr th:each="post : ${post}">
+					<td th:text="${post.id}">좋아요 한 글 번호</td>
+					<td th:text="${post.content}">좋아요한 글 내용</td>
+					<td th:text="${#temporals.format(post.createdAt, 'yyyy년 M월 d일 HH:mm:ss')}">좋아요 한 날짜</td>
 				</tr>
 			</tbody>
 		</table>
@@ -30,6 +30,6 @@
 
 <th:block layout:fragment="script">
     <script>
-
+		
     </script>
 </th:block>
