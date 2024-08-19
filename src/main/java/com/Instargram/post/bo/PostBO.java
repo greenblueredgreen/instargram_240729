@@ -44,6 +44,8 @@ public class PostBO {
 		return postMapper.getPostCountByUserId(userId);
 	}
 	
+	// 좋아요한 글번호들 리스트에서 뽑은 글번호를 통해 postEntity list로 받아오는 bo
+	// 좋아요한 글번호에 해당하는 postEntity 가져오는 bo
 	public List<PostEntity> getPostEntityListByPostID(int postId) {
 		return postMapper.selectPostEntityListByPostID(postId);
 	}
