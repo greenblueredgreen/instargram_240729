@@ -45,9 +45,13 @@ public class UserEntity {
 	
 	@UpdateTimestamp
 	@Column(name="createdAt")
-	private String createdAt;
+	private LocalDateTime createdAt;
 	
 	@UpdateTimestamp
 	@Column(name="updatedAt")
 	private LocalDateTime updatedAt;
+	
+	private String introduce;
+	
+	private String gender;
 }

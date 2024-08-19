@@ -41,8 +41,8 @@
 				
 				<!-- 글 -->
 				<div class="card-post m-3">
-					<span class="font-weight-bold" th:text="${cardView.post.userId}">글쓴이</span>
-					<span th:text=${cardView.post.content}>글내용</span>
+					<span class="font-weight-bold" th:text="${cardView.user.loginId}">글쓴이</span>
+					<span class="ml-2" th:text=${cardView.post.content}>글내용</span>
 				</div>
 				
 				<!-- 댓글 제목 -->

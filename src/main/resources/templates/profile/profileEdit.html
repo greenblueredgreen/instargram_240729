@@ -1,51 +1,133 @@
 <!DOCTYPE html>
-<html 
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/defaultLayout}">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/defaultLayout}">
 <section layout:fragment="content" class="contents bg-danger">
 
 	<div class="container">
 		<div class="d-flex justify-content-center">
 			<h1 class="mb-5 mt-5">프로필 편집</h1>
 		</div>
-		
+
 		<div class="d-flex justify-content-center mb-4">
-			<img alt="프로필 이미지" src="/img/instargramLogo.png" width="50px">
-			<b class="ml-4 mr-4" th:text="${session.userLoginId}">아이디</b>
+			<div id="fileName" class="ml-2"></div>
 			<div class="d-flex justify-content-end">
-				<button class="btn btn-info">사진 변경</button>
+				<input type="file" id="file" accept=".jpg, .png, .gif"
+					class="d-none">
+				<button id="fileUploadBtn" class="btn btn-info ml-4">사진 편집</button>
 			</div>
 		</div>
-		
 		<br>
-		
 		<div>
 			<div>
 				<h3 class="ml-3 mb-4">소개</h3>
 			</div>
-			<textarea rows="10" id="content" class="form-control" placeholder="내용을 입력하세요"></textarea>
+			<textarea rows="10" id="introduce" class="form-control"
+				placeholder="내용을 입력하세요"></textarea>
 		</div>
-		
 		<br>
 		<div>
 			<div>
 				<h3 class="ml-3 mb-4">성별</h3>
 			</div>
-			<select name="gender">
-			    <option value="">성별선택</option>
-			    <option value="여성">여성</option>
-			    <option value="남성">남성</option>
-			    <option value="밝히고 싶지 않음">밝히고 싶지 않음</option>
+			<select name="gender" id="gender">
+				<option>성별선택</option>
+				<option value="여성">여성</option>
+				<option value="남성">남성</option>
+				<option value="밝히고 싶지 않음">밝히고 싶지 않음</option>
 			</select>
 		</div>
-		
-		<br>
-		<br>
-		<br>
-		
-		<button type="submit" class="btn btn-info">제출</button>
-		
+		<br> <br> <br> <input type="submit" id="profileEditBtn"
+			class="btn btn-info" value="프로필편집버튼">
 	</div>
 </section>
-</html>
+
+<th:block layout:fragment="script">
+	<script>
+		$(document).ready(function() {
+
+			$("#fileUploadBtn").on('click', function(e) {
+				e.preventDefault(); 
+				//alert("클릭");
+				$("#file").click(); 
+			});
+			
+			// 파일이 선택될 때, 1.유효성 체크  2.파일명 노출
+			$("#file").on('change', function(e) {
+				// 취소를 누를 때 처리(파일이 비워지므로 .name에서 에러 발생)
+				let file = e.target.files[0];
+				if (file == null) {
+					$("#file").val("");
+					$("#fileName").text("");
+					return;
+				}
+				
+				//alert("이미지 선택");
+				let fileName = e.target.files[0].name; // leaves-8724660_640.jpg
+				console.log(fileName);
+				
+				//확장자체크
+				let ext = fileName.split(".").pop().toLowerCase();
+				console.log(ext);
+				
+				if (ext != "gif" && ext != "png" && ext != "jpg") {
+					alert("이미지 파일만 업로드 할 수 있습니다.");
+					$("#file").val(""); // 파일 태그에 올라온 것 제거(보이지 않지만 꼭! 처리)
+					$("#fileName").text(""); // 보여지고 있는 파일명 초기화
+					return;
+				}
+				
+				// 2. 파일명 노출
+				$("#fileName").text(fileName);
+			});
+
+			$("#profileEditBtn").on('click', function(e) {
+				e.preventDefault();
+
+				let file = $("#file").val();
+				let introduce = $("#introduce").val();
+				let gender = $("#gender").val();
+				
+				//파일 업로드 된 경우, 확장자 체크
+				let ext = file.split('.').pop().toLowerCase();
+				if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+					alert("gif, png, jpg, jpeg 파일만 업로드 할 수 있습니다.");
+					$('#file').val(''); // 파일을 비운다.
+					return;
+				}
+				
+				let formData = new FormData();
+				formData.append("profileImg", $('#file')[0].files[0]);
+				
+				formData.append("introduce", introduce);
+				formData.append("gender", gender);
+				
+				$.ajax({
+					//request
+					type: "post"
+					, url : "/profile/edit"
+					, data: formData
+					, enctype : "multipart/form-data"  
+					//파일업로드 필수설정
+					, processData : false //파일업로드 필수설정
+					, contentType : false //파일업로드 필수설정
+					
+					//response
+					, success:function(data){
+						if(data.code == 200){
+							location.reload(); //현재페이지 reload
+						} else if (data.code == 403){ //비로그인
+							location.href="/user/sign-in-view";
+						} else{
+							alert(data.error_message);
+						}
+					}
+					, error:function(e){
+						alert("프로필편집에 실패했습니다. 관리자에게 문의해주세요");
+					}
+				}); //ajax
+			});
+
+		});
+	</script>
+</th:block>

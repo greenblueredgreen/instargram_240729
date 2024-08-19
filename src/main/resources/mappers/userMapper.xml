@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mapper namespace="com.Instargram.user.mapper.UserMapper">
+
+	<update id="addProfileImgIntroduceGender" parameterType="map">
+
+	</update>
+ </mapper>
