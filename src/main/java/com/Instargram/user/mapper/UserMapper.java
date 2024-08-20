@@ -9,8 +9,8 @@ import com.Instargram.user.domain.User;
 @Mapper
 public interface UserMapper {
 
-	public User addProfileImgIntroduceGender(
-			@Param("userLoginId") String userLoginId, 
+	public void addProfileImgIntroduceGender(
+			@Param("loginId") String userLoginId, 
 			@Param("profileImg") String profileImg, 
 			@Param("introduce") String introduce, 
 			@Param("gender" )String gender);

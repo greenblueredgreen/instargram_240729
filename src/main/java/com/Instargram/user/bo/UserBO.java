@@ -53,11 +53,11 @@ public class UserBO {
 	
 	//프로필 편집
 	//프로필이미지, 소개, 성별 넣기
-	public User addProfileImgIntroduceGender(
+	public void addProfileImgIntroduceGender(
 			String userLoginId, MultipartFile profileImg, String introduce, String gender) {
 		
 		String imagePath = fileManagerService.uploadFile(profileImg, userLoginId);
 		
-		return userMapper.addProfileImgIntroduceGender(userLoginId, imagePath, introduce, gender);
+		userMapper.addProfileImgIntroduceGender(userLoginId, imagePath, introduce, gender);
 	}
 }

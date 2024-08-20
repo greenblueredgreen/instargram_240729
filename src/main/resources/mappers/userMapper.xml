@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<mapper namespace="com.Instargram.user.mapper.UserMapper">
-
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.Instargram.user.mapper.UserMapper">
 	<update id="addProfileImgIntroduceGender" parameterType="map">
-
+		UPDATE 
+			`user`
+		SET
+			`profileImg`= #{profileImg} 
+			,`introduce` = #{introduce}
+			,`gender` = #{gender}
+			, `updatedAt` = NOW()
+		WHERE
+			`loginId` = #{loginId}
 	</update>
  </mapper>
