@@ -41,4 +41,18 @@
 		WHERE
 			`id` = #{id}
 	</select>
+	
+	<select id="selectPostEntityListByUserId" parameterType="int">
+		SELECT
+			`id`
+			,`userId`
+			,`imagePath`
+			,`content`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`post`
+		WHERE
+			`userId` = #{userId}
+	</select>
  </mapper>

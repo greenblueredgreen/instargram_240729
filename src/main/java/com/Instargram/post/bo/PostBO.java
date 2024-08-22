@@ -38,6 +38,11 @@ public class PostBO {
 	public List<PostEntity> getPostEntityList() {
 		return postRepository.findByOrderByIdDesc();
 	}
+	
+	// userId에 해당한 글 가져오는 BO -> 내가 쓴 글을 가져와서 프로필 게시물에 채우기
+	public List<PostEntity> getPostEntityListByUserId(int userId) {
+		return postMapper.selectPostEntityListByUserId(userId);
+	}
 
 	// 게시글 개수 가져오는 BO
 	public int getPostCountByUserId(int userId) {
