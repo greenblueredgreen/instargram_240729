@@ -15,7 +15,13 @@
 				<div class="p-2 d-flex justify-content-between">
 					<!-- 글쓴이 -->
 					<!-- post로 접근 -->
-					<span class="font-weight-bold" th:text="${cardView.user.loginId}">글쓴이</span>
+	
+					<!-- a태그를 바깥으로 뺴고 class로 접근하고, data를 앞으로 빼니 postId가 잘 가져와진다 -->
+					<!-- userId 들고오기 -->
+					<a href="#" class="writerName" th:data-user-id="${cardView.post.userId}">
+						<span class="font-weight-bold" th:text="${cardView.user.loginId}">글쓴이</span>
+					</a>
+				
 					<span>10시간</span>
 
 					<!-- 더보기 -->
@@ -220,6 +226,27 @@
     				}
     			, error:function(e){
     				alert("삭제하는데 실패!")
+    				}
+    			});
+    		});
+    		
+    		//다른 사람 프로필 화면으로 접근하기 -> 게시물의 userId 가져오기
+    		$(".writerName").on('click', function(e){
+    			e.preventDefault();
+
+    			let userId = $(this).data("user-id");
+    			//alert(userId);
+    			
+    			//게시글의 userId 데이터 보내기
+    			$.ajax({
+    				type : "GET"
+    				, url: "/profile/profile-another-view"
+    				, data: {"userId" : userId}
+    				, success : function(data){
+    					alert("data전송 성공!");
+    				}
+    				, error:function(e){
+    					alert("data전송을 실패했습니다");
     				}
     			});
     		});

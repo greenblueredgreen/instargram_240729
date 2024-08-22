@@ -1,6 +1,7 @@
 package com.Instargram.profile;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +12,18 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.Instargram.user.bo.UserBO;
+import com.Instargram.user.domain.User;
 
 import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/profile")
 @RestController
-public class ProfileEditRestController {
+public class ProfileRestController {
 
 	@Autowired
 	private UserBO userBO;
 
+	// 프로필 편집 API
 	@PostMapping("/edit")
 	public Map<String, Object> edit(@RequestParam(value = "profileImg", required = false) MultipartFile profileImg,
 			@RequestParam(value = "introduce", required = false) String introduce,
@@ -44,5 +47,5 @@ public class ProfileEditRestController {
 		result.put("code", 200);
 		result.put("result", "성공");
 		return result;
-	}
+	}	
 }

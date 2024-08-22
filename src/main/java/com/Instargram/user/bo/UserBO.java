@@ -42,7 +42,7 @@ public class UserBO {
 
 	// 댓글 쓴 사람의 정보를 가져오는 BO
 	public UserEntity getUserEntityById(int userId) {
-		return userRepository.findById(userId).orElse(null); //
+		return userRepository.findById(userId).orElse(null); 
 	}
 
 	// 회원정보 수정 BO (jpa)

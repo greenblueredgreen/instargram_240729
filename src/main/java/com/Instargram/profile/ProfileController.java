@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.Instargram.post.bo.PostBO;
 import com.Instargram.post.entity.PostEntity;
@@ -38,8 +39,8 @@ public class ProfileController {
 		// 내가 올린 게시물 들고오기
 		List<PostEntity> postList = postBO.getPostEntityListByUserId(userId);
 		model.addAttribute("postList", postList);
-		
-		//USER객체 들고오기 -> 프로필편집에서 설정된 정보를 프로필 화면에 뿌리기 위해
+
+		// USER객체 들고오기 -> 프로필편집에서 설정된 정보를 프로필 화면에 뿌리기 위해
 		List<User> userList = userBO.getUserList(userId);
 		model.addAttribute("userList", userList);
 
@@ -50,5 +51,18 @@ public class ProfileController {
 	@GetMapping("/profile-edit-view")
 	public String profileEdit() {
 		return "/profile/profileEdit";
+	}
+
+	// 다른 사람 프로필 화면
+	@GetMapping("/profile-another-view")
+	public String profileAnother(Model model, 
+			@RequestParam("userId") int userId) {
+		
+		//timeline 의 userId를 받아와야하는데 어떻게 받아오지?
+		List<User> userList = userBO.getUserList(userId);
+	
+		model.addAttribute("userList", userList);
+		
+		return "/profile/profileAnother";
 	}
 }

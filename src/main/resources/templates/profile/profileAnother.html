@@ -6,37 +6,37 @@
 <section layout:fragment="content" class="contents bg-danger">
 	<h1 class="d-flex justify-content-center mt-3 mb-3">프로필 화면</h1>
 	<div>
-		<div class="bg-info d-flex">
-			<div th:each= "user:${userList}" class="col-6">
-				<img alt="프로필이미지" th:src="${user.profileImg}" class="w-100">
+		<div class="bg-info d-flex" th:each= "user:${userList}">
+			<div class="col-6">
+				<img alt="프로필이미지" th:src="${user}" class="w-100">
 			</div>
 			<div class="col-6">
-				<div class="d-flex mt-4" th:each = "user:${userList}">
-					<div th:text="${user.loginId}" class="ml-4 mt-2"></div>
-					<button type="button" onclick="location.href= 'profile-edit-view'" class="btn btn-success ml-4">프로필 편집</button>
-				</div>
 				<div class="d-flex mt-4">
-					<small class="mr-2 ml-4">게시물 <small th:text="${postCount}"></small></small>
+					<div th:text="${user}" class="ml-4 mt-2"></div>
+					<button type="button" class="btn btn-success ml-4">팔로잉</button>
+				</div>
+			<!-- <div class="d-flex mt-4">
+					<small class="mr-2 ml-4">게시물 <small th:text="${cardView}"></small></small>
 					<small>팔로워    3 </small>
 					<small>팔로우    3</small>
 				</div>
-				<div th:each = "user:${userList}" class="ml-4 mt-4">
-					<small th:text="${user.gender}">성별</small>
-				</div>
-				<div th:each = "user:${userList}" class="d-flex ml-4 mt-4">
-					<small th:text="${user.introduce}">상태메시지</small>
-				</div>
+			<div th:each = "user:${cardView}" class="ml-4 mt-4">
+					<small th:text="${cardView}">성별</small>
+			</div>
+			<div th:each = "user:${cardView}" class="d-flex ml-4 mt-4">
+				<small th:text="${cardView}">상태메시지</small>
+			</div> -->
 			</div>
 		</div>  <!--프로필 이미지, 아이디, 상태메시지, 팔로워 팔로우-->
 	
-		<div class="bg-success"> <!-- 게시물 -->
+		<!-- <div class="bg-success"> 게시물
 			<div class="d-flex justify-content-center mt-3 mb-3">
 				<b>게시물</b> 
 			</div>
 			<div th:each= "post:${postList}">
 				<img alt="게시물 이미지" th:src="${post.imagePath}" class="w-50">
 			</div>
-		</div>
+		</div> -->
 	</div>
 </section>
 
