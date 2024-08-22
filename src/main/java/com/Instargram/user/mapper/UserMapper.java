@@ -1,5 +1,7 @@
 package com.Instargram.user.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,4 +16,6 @@ public interface UserMapper {
 			@Param("profileImg") String profileImg, 
 			@Param("introduce") String introduce, 
 			@Param("gender" )String gender);
+	
+	public List<User> selectUserList(int id);
 }

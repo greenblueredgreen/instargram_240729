@@ -7,21 +7,24 @@
 	<h1 class="d-flex justify-content-center mt-3 mb-3">프로필 화면</h1>
 	<div>
 		<div class="bg-info d-flex">
-			<div>
-				<img alt="프로필이미지" src="/img/instargramLogo.png">
+			<div th:each= "user:${userList}" class="col-6">
+				<img alt="프로필이미지" th:src="${user.profileImg}" class="w-100">
 			</div>
-			<div>
-				<div class="d-flex justify-content-center mt-2">
+			<div class="col-6">
+				<div class="d-flex mt-4">
 					<div th:text="${session.userLoginId}" class="ml-4 mt-2"></div>
 					<button type="button" onclick="location.href= 'profile-edit-view'" class="btn btn-success ml-4">프로필 편집</button>
 				</div>
-				<div class="d-flex justify-content-center mt-2">
-					<small class="mr-2 ml-3">게시물 <small th:text="${postCount}"></small></small>
+				<div class="d-flex mt-4">
+					<small class="mr-2 ml-4">게시물 <small th:text="${postCount}"></small></small>
 					<small>팔로워    3 </small>
 					<small>팔로우    3</small>
 				</div>
-				<div class="d-flex justify-content-center mt-3">
-					상태메시지
+				<div th:each = "user:${userList}" class="ml-4 mt-4">
+					<small th:text="${user.gender}">성별</small>
+				</div>
+				<div th:each = "user:${userList}" class="d-flex ml-4 mt-4">
+					<small th:text="${user.introduce}">상태메시지</small>
 				</div>
 			</div>
 		</div>  <!--프로필 이미지, 아이디, 상태메시지, 팔로워 팔로우-->
@@ -31,11 +34,10 @@
 				<b>게시물</b> 
 			</div>
 			<div th:each= "post:${postList}">
-				<img alt="프로필이미지" th:src="${post.imagePath}" class="w-50">
+				<img alt="게시물 이미지" th:src="${post.imagePath}" class="w-50">
 			</div>
 		</div>
 	</div>
-	
 </section>
 
 <th:block layout:fragment="script">

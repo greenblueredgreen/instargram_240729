@@ -14,4 +14,21 @@
 		WHERE
 			`loginId` = #{loginId}
 	</update>
+	
+	<select id="selectUserList" parameterType="int">
+		SELECT
+			`id`
+			,`phoneNumber`
+			,`email`
+			,`name`
+			,`loginId`
+			,`password`
+			,`profileImg`
+			, `gender`
+			, `introduce`
+		FROM
+			`user`
+		WHERE
+			`id` = #{id}
+	</select>
  </mapper>
