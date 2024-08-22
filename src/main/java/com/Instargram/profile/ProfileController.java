@@ -39,7 +39,7 @@ public class ProfileController {
 		List<PostEntity> postList = postBO.getPostEntityListByUserId(userId);
 		model.addAttribute("postList", postList);
 		
-		//USER객체 들고오기
+		//USER객체 들고오기 -> 프로필편집에서 설정된 정보를 프로필 화면에 뿌리기 위해
 		List<User> userList = userBO.getUserList(userId);
 		model.addAttribute("userList", userList);
 
