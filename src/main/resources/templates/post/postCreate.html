@@ -6,11 +6,13 @@
 	class="contents d-flex justify-content-center">
 	<div class="contents-box">
 		<div class="mt-5 font-weigth-bold d-flex justify-content-center">
-			<h3>새 게시물 만들기</h3>
+			<h2><b>새 게시물 만들기</b></h2>
 			<button id="writeBtn" class="comment-btn btn btn-light ml-4">
 				<font color="blue">공유하기</font>
 			</button>
 		</div>
+		<br>
+		<hr>
 		<div class="d-flex mt-5">
 			<div class="file-upload d-flex">
 				<!-- file 태그를 숨겨두고 이미지를 클릭하면 파일을 클릭한 것과 같은 효과를 준다. -->
@@ -25,21 +27,19 @@
 				<div id="fileName" class="ml-2"></div>
 				<div class="card-img">
 					<img th:src="${file}" class="w-100" alt="본문 이미지">
-				</div>
-					
-				<!-- 타임리프 사진 띄우기 -->
-					
+				</div>	
 			</div>
 
 			<div>
-				<div class="d-flex">
+				<div class="d-flex mb-3">
 					<!-- 로그인한 프로필 이미지, 아이디 -->
-					<img alt="로고 이미지" src="/img/instargramLogo.png" width="30px"></a>
-					<div th:text="${session.userLoginId}">아이디</div>
+					<div th:each= "user:${userList}">
+						<img alt="프로필이미지" th:src="${user.profileImg}" width="50px">
+					</div>
+					<h3 th:text="${session.userLoginId}" class="ml-3">아이디</h3>
 				</div>
-
 				<div>
-					<textarea rows="10" id="writeTextArea" class="form-control" placeholder="내용을 입력하세요"></textarea>
+					<textarea rows="20" id="writeTextArea" class="form-control" placeholder="내용을 입력하세요"></textarea>
 				</div>
 			</div>
 		</div>
