@@ -78,7 +78,7 @@ public class PostRestController {
 			//비로그인 상태
 			result.put("code", 403);
 			result.put("error_message", "로그인을 다시 해주세요!");
-			return result;
+			return result;  //json
 		}
 		
 		//DB 삭제

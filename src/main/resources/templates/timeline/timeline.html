@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/defaultLayout}">
-<section layout:fragment="content" class="contents bg-danger">
+<section layout:fragment="content" class="contents ">
 	<div class="contents-box">
 		<!-- 타임라인 영역 -->
 		<div class="timeline-box my-5">
@@ -205,7 +205,7 @@
     			//alert($("#modal").data('post-id'));
     		});
     		
-    		//글삭제 
+    		//글삭제
     		$("#postDeleteBtn").on('click', function(e){
     			e.preventDefault();
     			
@@ -217,6 +217,19 @@
     			type : "delete"
     			, url: "/post/delete"
     			, data: {"postId" : postId}
+    			
+    			
+    			/* result.put("code", 200);
+    			result.put("result", "성공");
+    			return result; */
+    			
+    			//json으로 응답이 내려감
+    			/* 
+    			{
+    				"code" : 200,
+    			}
+    			*/
+    			
     			, success : function(data){
     				if(data.code == 200){
     					location.reload(true);
@@ -235,20 +248,10 @@
     			e.preventDefault();
 
     			let userId = $(this).data("user-id");
-    			//alert(userId);
     			
-    			//게시글의 userId 데이터 보내기
-    			$.ajax({
-    				type : "GET"
-    				, url: "/profile/profile-another-view"
-    				, data: {"userId" : userId}
-    				, success : function(data){
-    					alert("data전송 성공!");
-    				}
-    				, error:function(e){
-    					alert("data전송을 실패했습니다");
-    				}
-    			});
+    			//그냥 화면이동이라 ajax 사용 안함. json응답이 필요할 때만 ajax 사용한다.
+    			//userId는 필수파라미터로 설정해놓았기 때문에(ProfileController에서) 쿼리스트링으로 붙여서 내려줘야한다
+    			location.href="/profile/profile-another-view?userId=" + userId;
     		});
     		
     	});

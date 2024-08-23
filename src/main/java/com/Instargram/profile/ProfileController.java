@@ -57,12 +57,18 @@ public class ProfileController {
 	@GetMapping("/profile-another-view")
 	public String profileAnother(Model model, 
 			@RequestParam("userId") int userId) {
-		
+	
 		//timeline 의 userId를 받아와야하는데 어떻게 받아오지?
 		List<User> userList = userBO.getUserList(userId);
 	
 		model.addAttribute("userList", userList);
 		
+		//400에러가 발생한 이유 - 파라미터 에러
+		//필수파라미터로 설정한 userId가 경로에 붙지 않고 와서 에러가 발생한거다
+		//무조건 쿼리스트링 형식으로 userId가 붙어와야 경로로 접근이 가능하다
+		// /profile-another-view?userId = 
+		// 나는 /profile-another-view로 치고들어가면 404가 뜨는지 이해가 안됐는데
+		// 필수파라미터 때문에 그런거다.
 		return "/profile/profileAnother";
 	}
 }
