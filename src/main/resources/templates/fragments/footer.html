@@ -6,21 +6,27 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<footer th:fragment="footerFragment" class=" bg-warning">
+	<footer th:fragment="footerFragment">
 
 			<div>
-				<div th:if="${session.userId != null}">
+				<div th:if="${session.userId != null}" class="mt-4">
 					<!-- 로그인 된 경우 -->
 					<span th:text="${session.userLoginId} + '님 안녕하세요'"></span> 
+						<br>
 						<a href="/user/sign-out">로그아웃</a>
 				</div>
 				
 				<div th:unless="${session.userId != null}">
 					<a href="/user/sign-in-view">로그인</a>
 				</div>
-		
+				
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
 				<div class="d-flex">
-					<small>@ 2024 INSTARGRAM FROM META</small>
+					<small><b>@ 2024 INSTARGRAM FROM META</b></small>
 				</div>
 			</div>
 

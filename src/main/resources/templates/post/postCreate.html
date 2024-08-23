@@ -4,7 +4,7 @@
 	layout:decorate="~{layout/defaultLayout}">
 <section layout:fragment="content"
 	class="contents d-flex justify-content-center">
-	<div class="contents-box">
+	<div class="w-75">
 		<div class="mt-5 font-weigth-bold d-flex justify-content-center">
 			<h2><b>새 게시물 만들기</b></h2>
 			<button id="writeBtn" class="comment-btn btn btn-light ml-4">
@@ -14,7 +14,7 @@
 		<br>
 		<hr>
 		<div class="d-flex mt-5">
-			<div class="file-upload d-flex">
+			<div class="file-upload d-flex col-6">
 				<!-- file 태그를 숨겨두고 이미지를 클릭하면 파일을 클릭한 것과 같은 효과를 준다. -->
 				
 				<input type="file" id="file" accept=".jpg, .png, .gif"
@@ -30,7 +30,7 @@
 				</div>	
 			</div>
 
-			<div>
+			<div class="col-6">
 				<div class="d-flex mb-3">
 					<!-- 로그인한 프로필 이미지, 아이디 -->
 					<div th:each= "user:${userList}">
