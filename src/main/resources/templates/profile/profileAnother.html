@@ -13,7 +13,7 @@
 			<div class="col-6">
 				<div class="d-flex mt-4" th:each = "user:${userList}">
 					<div th:text="${user.loginId}" class="ml-4 mt-2 font-weight-bold"></div>
-					<button type="button" onclick="location.href= 'profile-edit-view'" class="btn btn-success ml-4">프로필 편집</button>
+					<button type="button" id="followingBtn" class="btn btn-success ml-4" th:data-following-id="${user.id}">팔로잉</button>
 				</div>
 				<div class="d-flex mt-4">
 					<small class="mr-2 ml-4">게시물 <small th:text="${postCount}"></small></small>
@@ -42,5 +42,19 @@
 
 <th:block layout:fragment="script">
     <script>
+	    $(document).ready(function() {
+	    	
+	    	//팔로잉 버튼 누르기
+			$("#followingBtn").on('click', function(e) {
+				e.preventDefault(); 
+				
+				//팔로잉 할 사람의 id 들고오기 (글쓴 사람의 정보)
+				let followingId = $(this).data("following-id");
+				alert(followingId);
+				
+			});
+	    });
+			 
+			
     </script>
 </th:block> 
