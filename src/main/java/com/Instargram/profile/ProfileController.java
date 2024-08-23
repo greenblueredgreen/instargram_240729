@@ -69,6 +69,10 @@ public class ProfileController {
 		// /profile-another-view?userId = 
 		// 나는 /profile-another-view로 치고들어가면 404가 뜨는지 이해가 안됐는데
 		// 필수파라미터 때문에 그런거다.
+		
+		List<PostEntity> postList = postBO.getPostEntityListByUserId(userId);
+		model.addAttribute("postList", postList);
+
 		return "/profile/profileAnother";
 	}
 }
