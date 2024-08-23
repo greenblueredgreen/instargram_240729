@@ -34,7 +34,7 @@ public class FollowRestController {
 		}
 
 		//팔로잉할 사람 db에 담기(로그인한 사람, 팔로잉 할 사람)
-		followBO.addFollowing()
+		followBO.addFollowing(userId, )
 
 		// 응답값
 		result.put("code", 200);
