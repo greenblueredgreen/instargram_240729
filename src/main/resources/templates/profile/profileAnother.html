@@ -13,7 +13,8 @@
 			<div class="col-6">
 				<div class="d-flex mt-4" th:each = "user:${userList}">
 					<div th:text="${user.loginId}" class="ml-4 mt-2 font-weight-bold"></div>
-					<button type="button" id="followingBtn" class="btn btn-success ml-4" th:data-following-id="${user.id}">팔로잉</button>
+					<button  type="button" id="followingBtn" class="btn btn-success ml-4" th:data-following-id="${user.id}">팔로잉</button>
+					<button  type="button" id="deletefollowingBtn" class="btn btn-success ml-4" th:data-following-id="${user.id}">팔로잉 해제</button>
 				</div>
 				<div class="d-flex mt-4">
 					<small class="mr-2 ml-4">게시물 <small th:text="${postCount}"></small></small>
@@ -50,8 +51,53 @@
 				
 				//팔로잉 할 사람의 id 들고오기 (글쓴 사람의 정보)
 				let followingId = $(this).data("following-id");
-				alert(followingId);
+				//alert(followingId);
 				
+				
+				$.ajax({
+    				type : "post"
+    				, url : "/follow/add"
+    				, data : {"followingId" : followingId}
+    				, success:function(data){
+    					if(data.code == 200){
+    						location.reload(true);
+    					} else if (data.code==403){
+    						//비로그인 상태
+    						location.href = "/user/sign-in-view";
+    					} else{
+    						alert(data.error_message);
+    					}
+    				}
+    				, error:function(e){
+    					alert("팔로잉에 실패했습니다");
+    				}
+    			});
+			});
+	    	
+	    	//팔로잉 해제 버튼
+			$("#deletefollowingBtn").on('click', function(e) {
+				e.preventDefault(); 
+			
+				let followingId = $(this).data("following-id");
+			
+				$.ajax({
+    				type : "post"
+    				, url : "/follow/delete"
+    				, data : {"followingId" : followingId}
+    				, success:function(data){
+    					if(data.code == 200){
+    						location.reload(true);
+    					} else if (data.code==403){
+    						//비로그인 상태
+    						location.href = "/user/sign-in-view";
+    					} else{
+    						alert(data.error_message);
+    					}
+    				}
+    				, error:function(e){
+    					alert("팔로잉 해제에 실패했습니다");
+    				}
+    			});
 			});
 	    });
 			 

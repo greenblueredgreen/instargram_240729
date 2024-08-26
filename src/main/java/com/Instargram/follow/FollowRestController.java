@@ -34,7 +34,29 @@ public class FollowRestController {
 		}
 
 		//팔로잉할 사람 db에 담기(로그인한 사람, 팔로잉 할 사람)
-		followBO.addFollowing(userId, )
+		followBO.addFollowing(userId, followingId);
+
+		// 응답값
+		result.put("code", 200);
+		result.put("result", "성공");
+		return result;
+	}
+	
+	//팔로잉 해제 
+	@PostMapping("/delete")
+	public Map<String, Object> deleteFollowing(HttpSession session,
+			@RequestParam("followingId") int followingId){
+		
+		Integer userId = (Integer) session.getAttribute("userId");
+		Map<String, Object> result = new HashMap<>();
+		if (userId == null) { // 로그인 안됨
+			result.put("code", 403);
+			result.put("result", "로그인 먼저 해주세요!");
+			return result;
+		}
+
+		//팔로잉할 사람 db에서 지우기(로그인한 사람, 팔로잉 했던ㅍ사람)
+		followBO.deleteFollowing(userId, followingId);
 
 		// 응답값
 		result.put("code", 200);
