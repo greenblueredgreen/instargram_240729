@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.Instargram.follow.bo.FollowBO;
 import com.Instargram.post.bo.PostBO;
 import com.Instargram.post.entity.PostEntity;
 import com.Instargram.user.bo.UserBO;
@@ -25,6 +26,9 @@ public class ProfileController {
 
 	@Autowired
 	private UserBO userBO;
+	
+	@Autowired
+	private FollowBO followBO;
 
 	// 프로필 화면
 	@GetMapping("/profile-view")
@@ -44,6 +48,14 @@ public class ProfileController {
 		List<User> userList = userBO.getUserList(userId);
 		model.addAttribute("userList", userList);
 
+		//팔로워 개수 프로필 화면에 뿌리기
+		int followerCount = followBO.getFollowerCountByFollowingUserId(userId);
+		model.addAttribute("followerCount", followerCount);
+		
+		//팔로잉 개수 프로필 화면에 뿌리기
+		int followingCount = followBO.getFollowingCountByUserId(userId);
+		model.addAttribute("followingCount", followingCount);
+		
 		return "/profile/profile";
 	}
 
@@ -77,6 +89,14 @@ public class ProfileController {
 		//userId에 해당하는(다른사람)이 쓴 게시물 개수 들고오기
 		int postCount = postBO.getPostCountByUserId(userId);
 		model.addAttribute("postCount", postCount);
+		
+		//팔로워 개수 프로필 화면에 뿌리기
+		int followerCount = followBO.getFollowerCountByFollowingUserId(userId);
+		model.addAttribute("followerCount", followerCount);
+				
+		//팔로잉 개수 프로필 화면에 뿌리기
+		int followingCount = followBO.getFollowingCountByUserId(userId);
+		model.addAttribute("followingCount", followingCount);
 		
 		return "/profile/profileAnother";
 	}

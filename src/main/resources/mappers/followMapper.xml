@@ -28,4 +28,22 @@
 			AND
 			`FollowingUserId` = #{FollowingUserId}
 	</delete>
+	
+	<select id="getFollowerCountByFollowingUserId" parameterType="int" resultType="int">
+		SELECT
+			COUNT(1)
+		FROM
+			`follow`
+		WHERE
+			`FollowingUserId` = #{FollowingUserId}
+	</select>
+	
+	<select id="getFollowingCountByUserId" parameterType="int" resultType="int">
+		SELECT
+			COUNT(1)
+		FROM
+			`follow`
+		WHERE
+			`FollowerUserId` = #{FollowerUserId}
+	</select>
 </mapper>

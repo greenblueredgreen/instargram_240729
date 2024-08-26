@@ -20,4 +20,14 @@ public class FollowBO {
 	public void deleteFollowing(int userId, int followingId) {
 		followMapper.deleteFollowing(userId, followingId);
 	}
+	
+	//팔로워 개수 가져오기
+	public int getFollowerCountByFollowingUserId(int followingId) {
+		return followMapper.getFollowerCountByFollowingUserId(followingId);
+	}
+	
+	//팔로잉 개수 가져오기
+	public int getFollowingCountByUserId(int userId) {
+		return followMapper.getFollowingCountByUserId(userId);
+	}
 }

@@ -16,4 +16,9 @@ public interface FollowMapper {
 			@Param("FollowerUserId")int userId, 
 			@Param("FollowingUserId") int followingId);
 	
+	//팔로워 개수 가져오기
+	public int getFollowerCountByFollowingUserId(int followingId);
+	
+	//팔로잉 개수 가져오기
+	public int getFollowingCountByUserId(int FollowerUserId);
 }
