@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/profile")
 @Controller
 public class ProfileController {
-
+	
 	@Autowired
 	private PostBO postBO;
 

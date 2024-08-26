@@ -1,5 +1,7 @@
 package com.Instargram.follow.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +31,15 @@ public class FollowBO {
 	//팔로잉 개수 가져오기
 	public int getFollowingCountByUserId(int userId) {
 		return followMapper.getFollowingCountByUserId(userId);
+	}
+	
+	//팔로워 리스트 가져오기
+	public List<Integer> getFollowerListByUserId(int userId){
+		return followMapper.getFollowerListByUserId(userId);
+	}
+	
+	//팔로잉 리스트 가져오기
+	public List<Integer> getFollowingListByUserId(int userId){
+		return followMapper.getFollowingListByUserId(userId);
 	}
 }

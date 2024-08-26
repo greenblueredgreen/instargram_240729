@@ -46,4 +46,22 @@
 		WHERE
 			`FollowerUserId` = #{FollowerUserId}
 	</select>
+	
+	<select id="getFollowerListByUserId" parameterType="int">
+		SELECT
+			`FollowerUserId`
+		FROM
+			`follow`
+		WHERE
+			`FollowingUserId` = #{FollowingUserId}
+	</select>
+	
+	<select id="getFollowingListByUserId" parameterType="int">
+		SELECT
+			`FollowingUserId`
+		FROM
+			`follow`
+		WHERE
+			`FollowerUserId` = #{FollowerUserId}
+	</select>
 </mapper>

@@ -12,37 +12,13 @@
 			<hr>
 			
 			<!-- 타임리프 반복 돌기 할 것. -->
-			<div class="d-flex">
+			<div class="d-flex" th:each="user : ${user}">
 				<div>
-					<img alt="게시물 이미지" src="/img/p.png" width="50px" height="50px">
+					<img alt="프로필 이미지" th:src="${user.profileImg}"  width="50px" height="50px">
 				</div>
 				<div class="ml-2">
-					<div>아이디</div>
-					<div>이름</div>
-				</div>
-				<div class="ml-5">
-					<button type="button" class="btn btn-light">삭제</button>
-				</div>
-			</div> <!-- 반복 끝 -->
-			<div class="d-flex">
-				<div>
-					<img alt="게시물 이미지" src="/img/p.png" width="50px" height="50px">
-				</div>
-				<div class="ml-2">
-					<div>아이디</div>
-					<div>이름</div>
-				</div>
-				<div class="ml-5">
-					<button type="button" class="btn btn-light">삭제</button>
-				</div>
-			</div> <!-- 반복 끝 -->
-			<div class="d-flex">
-				<div>
-					<img alt="게시물 이미지" src="/img/p.png" width="50px" height="50px">
-				</div>
-				<div class="ml-2">
-					<div>아이디</div>
-					<div>이름</div>
+					<div th:text = "${user.loginId}">아이디</div>
+					<div th:text = "${user.name}">이름</div>
 				</div>
 				<div class="ml-5">
 					<button type="button" class="btn btn-light">삭제</button>

@@ -16,9 +16,9 @@
 					<button type="button" onclick="location.href= 'profile-edit-view'" class="btn btn-success ml-4">프로필 편집</button>
 				</div>
 				<div class="d-flex mt-4">
-					<small class="mr-3 ml-4">게시물 <small th:text="${postCount}"></small></small>
-					<small class="mr-3">팔로워    <small th:text="${followerCount}"></small> </small>
-					<small>팔로우    <small th:text="${followingCount}"></small></small>
+					<small class="mr-3 ml-4">게시물 <small th:text="${postCount}"></small></small></a>
+					<a href="/follow/follower-view"><small class="mr-3">팔로워<small th:text="${followerCount}"></small></small></a>
+					<a href="/follow/following-view"><small>팔로우<small th:text="${followingCount}"></small></small></a>
 				</div>
 				<div th:each = "user:${userList}" class="ml-4 mt-3">
 					<small th:text="${user.gender}">성별</small>
