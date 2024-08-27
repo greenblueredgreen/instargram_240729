@@ -3,39 +3,39 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/defaultLayout}">
-<section layout:fragment="content" class="contents bg-danger">
-	<h1 class="d-flex justify-content-center mt-3 mb-3">프로필 화면</h1>
+<section layout:fragment="content" class="contents">
+	<h2 class="d-flex justify-content-center mt-4 mb-4"><b>프로필 화면</b></h2>
 	<div>
-		<div class="bg-info d-flex">
+		<div class="d-flex">
 			<div th:each= "user:${userList}" class="col-6">
 				<img alt="프로필이미지" th:src="${user.profileImg}" class="w-75">
 			</div>
 			<div class="col-6">
-				<div class="d-flex mt-4" th:each = "user:${userList}">
+				<div class="d-flex mt-2" th:each = "user:${userList}">
 					<div th:text="${user.loginId}" class="ml-4 mt-2 font-weight-bold"></div>
-					<button  type="button" id="followingBtn" class="btn btn-success ml-4" th:data-following-id="${user.id}">팔로잉</button>
-					<button  type="button" id="deletefollowingBtn" class="btn btn-success ml-4" th:data-following-id="${user.id}">팔로잉 해제</button>
+					<button th:if="${checkFollowingboolean == false}" type="button" id="followingBtn" class="btn btn-success ml-4" th:data-following-id="${user.id}">팔로잉</button>
+					<button th:unless="${checkFollowingboolean == false}"  type="button" id="deletefollowingBtn" class="btn btn-success ml-4" th:data-following-id="${user.id}">팔로잉 해제</button>
 				</div>
 				<div class="d-flex mt-4">
 					<small class="mr-2 ml-4">게시물 <small th:text="${postCount}"></small></small>
 					<small class="mr-3">팔로워    <small th:text="${followerCount}"></small> </small>
 					<small>팔로우    <small th:text="${followingCount}"></small></small>
 				</div>
-				<div th:each = "user:${userList}" class="ml-4 mt-4">
+				<div th:each = "user:${userList}" class="ml-4 mt-2">
 					<small th:text="${user.gender}">성별</small>
 				</div>
-				<div th:each = "user:${userList}" class="d-flex ml-4 mt-4">
+				<div th:each = "user:${userList}" class="d-flex ml-4 mt-2">
 					<small th:text="${user.introduce}">상태메시지</small>
 				</div>
 			</div>
 		</div>  <!--프로필 이미지, 아이디, 상태메시지, 팔로워 팔로우-->
 	
-		<div class="bg-success"> <!-- 게시물 -->
+		<div> <!-- 게시물 -->
 			<div class="d-flex justify-content-center mt-3 mb-3">
 				<b>게시물</b> 
 			</div>
 			<div th:each= "post:${postList}">
-				<img alt="게시물 이미지" th:src="${post.imagePath}" class="w-50">
+				<img alt="게시물 이미지" th:src="${post.imagePath}" class="w-100">
 			</div>
 		</div>
 	</div>
@@ -44,16 +44,22 @@
 <th:block layout:fragment="script">
     <script>
 	    $(document).ready(function() {
+	    	let urlStr = window.location.href;
+	    	let url = new URL(urlStr);
+	    	//alert(url);
+	    	let urlparams = url.searchParams;
+	    	let userId = urlparams.get('userId');
+	    	//현재 페이지의 다른 사람 프로필의 userId alert(userId);
+	    	location.href = ""
 	    	
-	    	//팔로잉 버튼 누르기
+	    	 //팔로잉 버튼 누르기
 			$("#followingBtn").on('click', function(e) {
 				e.preventDefault(); 
 				
 				//팔로잉 할 사람의 id 들고오기 (글쓴 사람의 정보)
 				let followingId = $(this).data("following-id");
 				//alert(followingId);
-				
-				
+			
 				$.ajax({
     				type : "post"
     				, url : "/follow/add"
@@ -79,7 +85,7 @@
 				e.preventDefault(); 
 			
 				let followingId = $(this).data("following-id");
-			
+				
 				$.ajax({
     				type : "post"
     				, url : "/follow/delete"
