@@ -20,13 +20,13 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/profile")
 @Controller
 public class ProfileController {
-	
+
 	@Autowired
 	private PostBO postBO;
 
 	@Autowired
 	private UserBO userBO;
-	
+
 	@Autowired
 	private FollowBO followBO;
 
@@ -48,14 +48,14 @@ public class ProfileController {
 		List<User> userList = userBO.getUserList(userId);
 		model.addAttribute("userList", userList);
 
-		//팔로워 개수 프로필 화면에 뿌리기
+		// 팔로워 개수 프로필 화면에 뿌리기
 		int followerCount = followBO.getFollowerCountByFollowingUserId(userId);
 		model.addAttribute("followerCount", followerCount);
-		
-		//팔로잉 개수 프로필 화면에 뿌리기
+
+		// 팔로잉 개수 프로필 화면에 뿌리기
 		int followingCount = followBO.getFollowingCountByUserId(userId);
 		model.addAttribute("followingCount", followingCount);
-		
+
 		return "/profile/profile";
 	}
 
@@ -67,37 +67,43 @@ public class ProfileController {
 
 	// 다른 사람 프로필 화면
 	@GetMapping("/profile-another-view")
-	public String profileAnother(Model model, 
-			@RequestParam("userId") int userId) {
-	
-		//timeline 의 userId를 받아와야하는데 어떻게 받아오지?
-		List<User> userList = userBO.getUserList(userId);
-	
-		model.addAttribute("userList", userList);
+	public String profileAnother(Model model, @RequestParam("userId") int userId,
+			HttpSession session) {
 		
-		//400에러가 발생한 이유 - 파라미터 에러
-		//필수파라미터로 설정한 userId가 경로에 붙지 않고 와서 에러가 발생한거다
-		//무조건 쿼리스트링 형식으로 userId가 붙어와야 경로로 접근이 가능하다
-		// /profile-another-view?userId = 
+		Integer userIdME = (Integer) session.getAttribute("userId");
+
+		// timeline 의 userId를 받아와야하는데 어떻게 받아오지?
+		List<User> userList = userBO.getUserList(userId);
+
+		model.addAttribute("userList", userList);
+
+		// 400에러가 발생한 이유 - 파라미터 에러
+		// 필수파라미터로 설정한 userId가 경로에 붙지 않고 와서 에러가 발생한거다
+		// 무조건 쿼리스트링 형식으로 userId가 붙어와야 경로로 접근이 가능하다
+		// /profile-another-view?userId =
 		// 나는 /profile-another-view로 치고들어가면 404가 뜨는지 이해가 안됐는데
 		// 필수파라미터 때문에 그런거다.
-		
-		//userId에 해당하는(다른 사람)이 쓴 게시물 들고오기
+
+		// userId에 해당하는(다른 사람)이 쓴 게시물 들고오기
 		List<PostEntity> postList = postBO.getPostEntityListByUserId(userId);
 		model.addAttribute("postList", postList);
-		
-		//userId에 해당하는(다른사람)이 쓴 게시물 개수 들고오기
+
+		// userId에 해당하는(다른사람)이 쓴 게시물 개수 들고오기
 		int postCount = postBO.getPostCountByUserId(userId);
 		model.addAttribute("postCount", postCount);
-		
-		//팔로워 개수 프로필 화면에 뿌리기
+
+		// 팔로워 개수 프로필 화면에 뿌리기
 		int followerCount = followBO.getFollowerCountByFollowingUserId(userId);
 		model.addAttribute("followerCount", followerCount);
-				
-		//팔로잉 개수 프로필 화면에 뿌리기
+
+		// 팔로잉 개수 프로필 화면에 뿌리기
 		int followingCount = followBO.getFollowingCountByUserId(userId);
 		model.addAttribute("followingCount", followingCount);
-		
+	
+		// 팔로잉 판별 db조회
+		boolean checkFollowingboolean = followBO.checkFollowing(userIdME, userId);
+		model.addAttribute("checkFollowingboolean", checkFollowingboolean);
+
 		return "/profile/profileAnother";
 	}
 }
