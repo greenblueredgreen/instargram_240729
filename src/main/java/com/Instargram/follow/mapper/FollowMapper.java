@@ -29,4 +29,9 @@ public interface FollowMapper {
 	
 	//팔로잉 하는 사람 userId 들고오기
 	public List<Integer> getFollowingListByUserId(int FollowerUserId);
+
+	//팔로잉 판별 메소드
+	public int checkFollowing(
+			@Param("FollowerUserId")int userId, 
+			@Param("FollowingUserId") int followingId);
 }

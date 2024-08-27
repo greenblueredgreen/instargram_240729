@@ -21,8 +21,9 @@
 					<a href="#" class="writerName" th:data-user-id="${cardView.post.userId}">
 						<span class="font-weight-bold" th:text="${cardView.user.loginId}">글쓴이</span>
 					</a>
-				
-					<span>10시간</span>
+					
+					<div th:text="${#temporals.format(cardView.post.createdAt, 'yyyy-MM-dd HH:mm')}"></div>
+					
 
 					<!-- 더보기 -->
 					<!-- 로그인 된 사람이랑 글쓴이가 같을때만 접근 가능하도록 -->

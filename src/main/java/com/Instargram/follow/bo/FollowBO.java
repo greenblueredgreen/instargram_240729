@@ -42,4 +42,17 @@ public class FollowBO {
 	public List<Integer> getFollowingListByUserId(int userId){
 		return followMapper.getFollowingListByUserId(userId);
 	}
+	
+	//팔로잉 체크 BO -> 팔로잉 버튼을 위한 BO
+	public boolean checkFollowing(int userId, int followingId) {
+		int result = followMapper.checkFollowing(userId, followingId);
+		if (result > 0) {
+			//팔로잉 되어있음
+			return true;
+		} else {
+			//팔로잉 안되어있음
+			return false;
+		}
+	}
+	
 }

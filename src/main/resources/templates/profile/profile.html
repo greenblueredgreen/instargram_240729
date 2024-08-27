@@ -3,24 +3,27 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/defaultLayout}">
-<section layout:fragment="content" class="contents bg-danger">
-	<h1 class="d-flex justify-content-center mt-3 mb-3">프로필 화면</h1>
+<section layout:fragment="content" class="contents">
+	<h2 class="d-flex justify-content-center mt-4 mb-4"><b>프로필 화면</b></h2>
+	<hr>
+	<br>
+	
 	<div>
-		<div class="bg-info d-flex">
+		<div class=" d-flex">
 			<div th:each= "user:${userList}" class="col-6">
 				<img alt="프로필이미지" th:src="${user.profileImg}" class="w-75">
 			</div>
-			<div class="col-6">
+			<div class="col-6 mb-4">
 				<div class="d-flex mt-4" th:each = "user:${userList}">
-					<div th:text="${user.loginId}" class="ml-4 mt-2 font-weight-bold"></div>
+					<div th:text="${user.loginId}" class="ml-4 mt-1 font-weight-bold"></div>
 					<button type="button" onclick="location.href= 'profile-edit-view'" class="btn btn-success ml-4">프로필 편집</button>
 				</div>
 				<div class="d-flex mt-4">
 					<small class="mr-3 ml-4">게시물 <small th:text="${postCount}"></small></small></a>
-					<a href="/follow/follower-view"><small class="mr-3">팔로워<small th:text="${followerCount}"></small></small></a>
-					<a href="/follow/following-view"><small>팔로우<small th:text="${followingCount}"></small></small></a>
+					<a href="/follow/follower-view"><small class="mr-3">팔로워<small th:text="${followerCount}" class="ml-1"></small></small></a>
+					<a href="/follow/following-view"><small>팔로우<small th:text="${followingCount}" class="ml-1"></small></small></a>
 				</div>
-				<div th:each = "user:${userList}" class="ml-4 mt-3">
+				<div th:each = "user:${userList}" class="ml-4 mt-2">
 					<small th:text="${user.gender}">성별</small>
 				</div>
 				<div th:each = "user:${userList}" class="d-flex ml-4 mt-2">
@@ -29,12 +32,14 @@
 			</div>
 		</div>  <!--프로필 이미지, 아이디, 상태메시지, 팔로워 팔로우-->
 	
-		<div class="bg-success"> <!-- 게시물 -->
+		<div> <!-- 게시물 -->
 			<div class="d-flex justify-content-center mt-3 mb-3">
 				<b>게시물</b> 
 			</div>
-			<div th:each= "post:${postList}">
-				<img alt="게시물 이미지" th:src="${post.imagePath}" class="w-50">
+			<div th:each= "post:${postList}" class="d-flex flex-wrap">
+				<div class="d-flex">
+					<img alt="게시물 이미지" th:src="${post.imagePath}" class="w-100">
+				</div>
 			</div>
 		</div>
 	</div>

@@ -64,4 +64,14 @@
 		WHERE
 			`FollowerUserId` = #{FollowerUserId}
 	</select>
+	
+	<select id="checkFollowing" parameterType="int">
+		SELECT
+			COUNT(1)
+		FROM
+			`follow`
+		WHERE
+			`FollowerUserId` = #{FollowerUserId}
+			AND `FollowingUserId` = #{FollowingUserId}
+	</select>
 </mapper>
