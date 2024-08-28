@@ -44,12 +44,14 @@
 <th:block layout:fragment="script">
     <script>
 	    $(document).ready(function() {
+	    	
 	    /* 	let urlStr = window.location.href;
 	    	let url = new URL(urlStr);
 	    	//alert(url);
 	    	let urlparams = url.searchParams;
 	    	let userId = urlparams.get('userId');
 	    	//현재 페이지의 다른 사람 프로필의 userId alert(userId);
+	    	//이미 userId 파라미터 넘겨서 따로 설정할 필요가 없다. 오히려 무한리프 도는 에러발생
 	    	 */
 	    	 //팔로잉 버튼 누르기
 			$("#followingBtn").on('click', function(e) {
