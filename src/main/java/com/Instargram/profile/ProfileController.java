@@ -67,9 +67,11 @@ public class ProfileController {
 
 	// 다른 사람 프로필 화면
 	@GetMapping("/profile-another-view")
-	public String profileAnother(Model model, @RequestParam("userId") int userId,
+	public String profileAnother(Model model, 
+			@RequestParam("userId") int userId, //이미 가져온 userId 활용하기
 			HttpSession session) {
 		
+		//로그인 한 유저
 		Integer userIdME = (Integer) session.getAttribute("userId");
 
 		// timeline 의 userId를 받아와야하는데 어떻게 받아오지?
