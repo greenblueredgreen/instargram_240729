@@ -40,6 +40,7 @@ dependencies {
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 	implementation "org.springframework.cloud:spring-cloud-starter-openfeign:3.1.0"
 	implementation 'com.google.code.gson:gson:2.8.7'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 }
 
 tasks.named('test') {
