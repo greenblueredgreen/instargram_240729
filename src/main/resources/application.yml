@@ -22,6 +22,6 @@ mybatis:
   mapper-locations: mappers/*Mapper.xml
 kakao:
   client_id: 052f56900201a40aa25887940e84b715
-  redirect_uri: http://localhost:8080/callback
+  redirect_uri: http://localhost/callback
 
   

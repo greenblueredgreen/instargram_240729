@@ -1,6 +1,6 @@
 package com.Instargram.kakao;
 
-import com.fasterxml.jackson.core.type.TypeReference;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("")
 public class KakaoLoginController {
 
+	//http://localhost/callback?code=RyCUAFRRNutT4xW71Wu443DPWK6s64a0i0kVJEXnebRM6Oj4gxJmbwAAAAQKPCSaAAABkaKXxbDUNEQ5evY1pg
     private final KakaoService kakaoService;
 
     @GetMapping("/callback")
