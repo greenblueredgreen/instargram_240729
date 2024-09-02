@@ -8,10 +8,14 @@
 <body>
 	<footer th:fragment="footerFragment">
 
-			<div>
+			<div class="ml-4">
+				<br>
+				<br>
+				<br>
+				
 				<div th:if="${session.userId != null}" class="mt-4">
 					<!-- 로그인 된 경우 -->
-					<span th:text="${session.userLoginId} + '님 안녕하세요'"></span> 
+					<b><span th:text="${session.userLoginId} + '님 안녕하세요'"></span></b> 
 						<br>
 						<a href="/user/sign-out">로그아웃</a>
 				</div>

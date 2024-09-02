@@ -5,14 +5,14 @@
       layout:decorate="~{layout/defaultLayout}">
 <section layout:fragment="content">
 	<div class="d-flex justify-content-center">
-		<div>
-			<div class="mt-5">
-				<h1>팔로워</h1>
+		<div >
+			<div class="mt-5 d-flex">
+				<h2 class="ml-5"><b>팔로워</b></h2>
 			</div>
 			<hr>
 			
 			<!-- 타임리프 반복 돌기 할 것. -->
-			<div class="d-flex" th:each="user : ${user}">
+			<div class="d-flex mb-3" th:each="user : ${user}">
 				<div>
 					<img alt="프로필 이미지" th:src="${user.profileImg}"  width="50px" height="50px">
 				</div>
